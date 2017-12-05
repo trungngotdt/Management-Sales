@@ -65,8 +65,6 @@ C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\Mono.
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\QuanLyBanHangTest.dll
-C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\QuanLyBanHangTest.pdb
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\AutoMapper.dll
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\Castle.Core.dll
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\FizzWare.NBuilder.dll
@@ -110,7 +108,9 @@ C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\Micro
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\ManagementSalesTest.csprojResolveAssemblyReference.cache
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\ManagementSalesTest.csproj.CoreCompileInputs.cache
-C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\QuanLyBanHangTest.dll
-C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\QuanLyBanHangTest.pdb
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\SystemWrapper.dll
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\SystemWrapper.xml
+C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\ManagementSalesTest.dll
+C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\ManagementSalesTest.pdb
+C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\ManagementSalesTest.dll
+C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\ManagementSalesTest.pdb
