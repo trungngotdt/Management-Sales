@@ -713,5 +713,12 @@ namespace ManagementSales
                 }
             }
         }
+
+        private void frmQuanLy_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Program.OpenFrmDangNhap = true;
+            Program.OpenFrmQuanLy = false;
+            Program.CloseFrm = false;
+        }
     }
 }

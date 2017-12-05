@@ -94,9 +94,9 @@
             this.txtGhiChu = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.tagPgDonHang = new System.Windows.Forms.TabPage();
-            this.dgrvDonHang = new System.Windows.Forms.DataGridView();
-            this.btnHienThiDonHang = new System.Windows.Forms.Button();
             this.btnHienThiChiTietDonHang = new System.Windows.Forms.Button();
+            this.btnHienThiDonHang = new System.Windows.Forms.Button();
+            this.dgrvDonHang = new System.Windows.Forms.DataGridView();
             this.tabPgKhach.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgrvKhachHang)).BeginInit();
@@ -776,16 +776,15 @@
             this.tagPgDonHang.Text = "Đơn Hàng";
             this.tagPgDonHang.UseVisualStyleBackColor = true;
             // 
-            // dgrvDonHang
+            // btnHienThiChiTietDonHang
             // 
-            this.dgrvDonHang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgrvDonHang.Location = new System.Drawing.Point(6, 22);
-            this.dgrvDonHang.MultiSelect = false;
-            this.dgrvDonHang.Name = "dgrvDonHang";
-            this.dgrvDonHang.ReadOnly = true;
-            this.dgrvDonHang.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgrvDonHang.Size = new System.Drawing.Size(706, 239);
-            this.dgrvDonHang.TabIndex = 0;
+            this.btnHienThiChiTietDonHang.Location = new System.Drawing.Point(293, 352);
+            this.btnHienThiChiTietDonHang.Name = "btnHienThiChiTietDonHang";
+            this.btnHienThiChiTietDonHang.Size = new System.Drawing.Size(124, 23);
+            this.btnHienThiChiTietDonHang.TabIndex = 2;
+            this.btnHienThiChiTietDonHang.Text = "Chi Tiết Đơn Hàng";
+            this.btnHienThiChiTietDonHang.UseVisualStyleBackColor = true;
+            this.btnHienThiChiTietDonHang.Click += new System.EventHandler(this.BtnHienThiChiTietDonHang_Click);
             // 
             // btnHienThiDonHang
             // 
@@ -797,15 +796,16 @@
             this.btnHienThiDonHang.UseVisualStyleBackColor = true;
             this.btnHienThiDonHang.Click += new System.EventHandler(this.BtnHienThiDonHang_Click);
             // 
-            // btnHienThiChiTietDonHang
+            // dgrvDonHang
             // 
-            this.btnHienThiChiTietDonHang.Location = new System.Drawing.Point(293, 352);
-            this.btnHienThiChiTietDonHang.Name = "btnHienThiChiTietDonHang";
-            this.btnHienThiChiTietDonHang.Size = new System.Drawing.Size(124, 23);
-            this.btnHienThiChiTietDonHang.TabIndex = 2;
-            this.btnHienThiChiTietDonHang.Text = "Chi Tiết Đơn Hàng";
-            this.btnHienThiChiTietDonHang.UseVisualStyleBackColor = true;
-            this.btnHienThiChiTietDonHang.Click += new System.EventHandler(this.BtnHienThiChiTietDonHang_Click);
+            this.dgrvDonHang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgrvDonHang.Location = new System.Drawing.Point(6, 22);
+            this.dgrvDonHang.MultiSelect = false;
+            this.dgrvDonHang.Name = "dgrvDonHang";
+            this.dgrvDonHang.ReadOnly = true;
+            this.dgrvDonHang.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgrvDonHang.Size = new System.Drawing.Size(706, 239);
+            this.dgrvDonHang.TabIndex = 0;
             // 
             // frmQuanLy
             // 
@@ -818,6 +818,7 @@
             this.Controls.Add(this.tabCnQuanLy);
             this.Name = "frmQuanLy";
             this.Text = "Quản Lý";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuanLy_FormClosing);
             this.Load += new System.EventHandler(this.frmQuanLy_Load);
             this.tabPgKhach.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);

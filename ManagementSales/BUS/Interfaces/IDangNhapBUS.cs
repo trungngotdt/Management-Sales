@@ -9,6 +9,12 @@ namespace ManagementSales.BUS.Interfaces
     public interface IDangNhapBUS
     {
         /// <summary>
+        /// Ghi lại hoạt động đăng nhập
+        /// </summary>
+        /// <param name="data"></param>
+        void Log(string data,string path);
+
+        /// <summary>
         /// Trả về Mã Nhân Viên dựa vào tên đăng nhập
         /// </summary>
         /// <param name="name"></param>

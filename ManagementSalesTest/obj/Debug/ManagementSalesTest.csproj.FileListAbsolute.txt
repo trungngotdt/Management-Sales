@@ -112,3 +112,5 @@ C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\Manag
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\ManagementSalesTest.csproj.CoreCompileInputs.cache
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\QuanLyBanHangTest.dll
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\obj\Debug\QuanLyBanHangTest.pdb
+C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\SystemWrapper.dll
+C:\Users\Tran\Documents\Git\Management-Sales\ManagementSalesTest\bin\Debug\SystemWrapper.xml

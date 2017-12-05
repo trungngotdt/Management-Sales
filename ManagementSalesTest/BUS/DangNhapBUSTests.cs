@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ManagementSales.DAO;
+using System.IO;
+using SystemWrapper;
+using System.Windows.Forms;
 
 namespace ManagementSales.BUS.Tests
 {
@@ -35,16 +38,16 @@ namespace ManagementSales.BUS.Tests
             //Assert.Fail();
         }
 
-        [TestCase(null,typeof(Exception))]
-        [TestCase("name",typeof(Exception))]
-        public void ChucVuTestException(string name,Type value)
+        [TestCase(null, typeof(Exception))]
+        [TestCase("name", typeof(Exception))]
+        public void ChucVuTestException(string name, Type value)
         {
             /*try
             {*/
-                mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), new object[] { name })).Throws(new Exception());
-                var exception=Assert.Catch<Exception>(()=> dangNhapBUS.ChucVu(name));
-                Assert.IsTrue(exception.GetType() == value);
-                mockIDataProvider.VerifyAll();
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), new object[] { name })).Throws(new Exception());
+            var exception = Assert.Catch<Exception>(() => dangNhapBUS.ChucVu(name));
+            Assert.IsTrue(exception.GetType() == value);
+            mockIDataProvider.VerifyAll();
             /*}
             catch (Exception ex)
             {
@@ -60,11 +63,26 @@ namespace ManagementSales.BUS.Tests
             //mockIDataProvider.VerifyAll();
         }
 
+        [TestCase(true)]
+        [TestCase(false)]
+        public void LogTest(bool checkFileExist)
+        {
+            string path = Path.GetTempPath() + "\\log.txt";
+            var file = File.Create(path);
+            file.Close();
+            var mockIO = new Mock<SystemWrapper.IO.IFileWrap>();
+            mockIO.Setup(x => x.Open(It.IsNotNull<string>(), FileMode.Open));//.Returns(mockIO.Object.Open(It.IsNotNull<string>(), FileMode.Open));
+            dangNhapBUS.Log("",path);
+            
+            File.Delete(path);
+
+        }
+
         [TestCase("name", "pass")]
         [TestCase("name1", "pass1")]
         public void IsDangNhapTest(string name, string pass)
         {
-            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(),new object[] { name })).Returns(pass);
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), new object[] { name })).Returns(pass);
             var result = dangNhapBUS.IsDangNhap(name, pass);
             var resultFalse = dangNhapBUS.IsDangNhap(name, "passs");
             Assert.True(result);
@@ -72,16 +90,16 @@ namespace ManagementSales.BUS.Tests
             mockIDataProvider.VerifyAll();
         }
 
-        [TestCase(null, "pass",typeof(Exception))]
-        [TestCase("name", "pass1",typeof(Exception))]
-        public void IsDangNhapTestException(string name, string pass,Type value)
+        [TestCase(null, "pass", typeof(Exception))]
+        [TestCase("name", "pass1", typeof(Exception))]
+        public void IsDangNhapTestException(string name, string pass, Type value)
         {
             /*try
             {*/
-                mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(),new object[] { name })).Throws(new Exception());
-                var exception=Assert.Catch<Exception>(()=> dangNhapBUS.IsDangNhap(name, pass));
-                Assert.IsTrue(exception.GetType() == value);
-                mockIDataProvider.VerifyAll();
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), new object[] { name })).Throws(new Exception());
+            var exception = Assert.Catch<Exception>(() => dangNhapBUS.IsDangNhap(name, pass));
+            Assert.IsTrue(exception.GetType() == value);
+            mockIDataProvider.VerifyAll();
             /*}
             catch (Exception ex)
             {
@@ -100,16 +118,16 @@ namespace ManagementSales.BUS.Tests
             mockIDataProvider.VerifyAll();
         }
 
-        [TestCase(null,typeof(Exception))]
-        [TestCase("name",typeof(Exception))]
-        public void MaNVTestException(string name,Type value)
+        [TestCase(null, typeof(Exception))]
+        [TestCase("name", typeof(Exception))]
+        public void MaNVTestException(string name, Type value)
         {
             /*try
             {*/
-                mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsAny<string>(), new object[] { name })).Throws(new Exception());
-                var exception=Assert.Catch<Exception>(()=> dangNhapBUS.MaNV(name));
-                Assert.IsTrue(exception.GetType() == value);
-                mockIDataProvider.VerifyAll();
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsAny<string>(), new object[] { name })).Throws(new Exception());
+            var exception = Assert.Catch<Exception>(() => dangNhapBUS.MaNV(name));
+            Assert.IsTrue(exception.GetType() == value);
+            mockIDataProvider.VerifyAll();
             /*}
             catch (Exception ex)
             {
@@ -127,14 +145,14 @@ namespace ManagementSales.BUS.Tests
             mockIDataProvider.VerifyAll();
         }
 
-        [TestCase(null,typeof(Exception))]
-        [TestCase(1,typeof(Exception))]
-        public void TenNVTestException(int id,Type value)
+        [TestCase(null, typeof(Exception))]
+        [TestCase(1, typeof(Exception))]
+        public void TenNVTestException(int id, Type value)
         {
             /*try
             {*/
-                mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), new object[] { id })).Throws(new Exception());
-                var exception=Assert.Catch<Exception>(()=> dangNhapBUS.TenNV(id));
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), new object[] { id })).Throws(new Exception());
+            var exception = Assert.Catch<Exception>(() => dangNhapBUS.TenNV(id));
             Assert.IsTrue(exception.GetType() == value);
             mockIDataProvider.VerifyAll();
             /*}

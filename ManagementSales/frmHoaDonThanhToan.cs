@@ -191,5 +191,13 @@ namespace ManagementSales
             btnThemHang.Enabled = true;
             btnThanhToan.Enabled = true;
         }
+
+        private void frmHoaDonThanhToan_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            Program.OpenFrmDangNhap = true;
+            Program.OpenFrmHoaDonThanhToan = false;
+            Program.CloseFrm = false;
+        }
     }
 }

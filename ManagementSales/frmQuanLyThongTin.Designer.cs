@@ -762,6 +762,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "frmQuanLyThongTin";
             this.Text = "Quản Lý Thông Tin";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuanLyThongTin_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);

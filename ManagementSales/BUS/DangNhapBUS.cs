@@ -2,9 +2,11 @@
 using ManagementSales.DAO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ManagementSales.BUS
 {
@@ -45,7 +47,7 @@ namespace ManagementSales.BUS
         {
             try
             {
-                var passHash = dataProvider.ExecuteScalar("EXECUTE USP_GetPassword @name", new object[] { name });
+                var passHash = dataProvider.ExecuteScalar("EXECUTE USP_GetPassword @name", new object[] { name })?.GetHashCode();
                 return passHash.GetHashCode() == Pass.GetHashCode();
             }
             catch (Exception ex)
@@ -53,6 +55,22 @@ namespace ManagementSales.BUS
 
                 throw ex;
             }
+
+            //throw new NotImplementedException();
+        }
+
+        public void Log(string data,string path)
+        {
+            //string path = Application.StartupPath + "\\log.txt";           
+            using (var fileStream =File.Open(path,FileMode.Open))
+            {
+                StreamWriter sWriter = new StreamWriter(fileStream, Encoding.UTF8);
+                sWriter.WriteLine(data);
+                sWriter.Flush();
+                sWriter.Close();
+                fileStream.Close();
+            }
+            
 
             //throw new NotImplementedException();
         }

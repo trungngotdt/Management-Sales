@@ -829,5 +829,12 @@ namespace ManagementSales
 
         #endregion
 
+        private void frmQuanLyThongTin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            Program.OpenFrmDangNhap = true;
+            Program.OpenFrmQuanLyThongTin = false;
+            Program.CloseFrm = false;
+        }
     }
 }

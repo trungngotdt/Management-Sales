@@ -23,6 +23,7 @@ namespace ManagementSales
 
         void Loading()
         {
+
             this.ActiveControl = txtName;
             this.AcceptButton = btnDangNhap;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -77,6 +78,8 @@ namespace ManagementSales
                     bool kiemTra = dangNhapBUS.IsDangNhap(txtName.Text, txtPass.Text);
                     if (kiemTra)
                     {
+                        string path = Application.StartupPath + "\\log.txt";
+                        dangNhapBUS.Log("Name :"+txtName.Text+"  Time : "+DateTime.Now.ToLongDateString(),path);
                         MessageBox.Show("Đăng Nhập thành công", "THÔNG BÁO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Program.IDStaff = dangNhapBUS.MaNV(txtName.Text);
                         Program.NameStaff = dangNhapBUS.TenNV(int.Parse(Program.IDStaff));
@@ -115,6 +118,12 @@ namespace ManagementSales
                 WarningMessageBox(ex);
             }
             this.Cursor = Cursors.Default;
+        }
+
+        private void frmDangNhap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Program.CloseFrm = true;
+            Program.OpenFrmDangNhap = false;
         }
     }
 }

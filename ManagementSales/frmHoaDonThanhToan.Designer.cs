@@ -227,6 +227,7 @@
             this.Controls.Add(this.btnThanhToan);
             this.Name = "frmHoaDonThanhToan";
             this.Text = "Hóa Đơn Thanh Toán";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmHoaDonThanhToan_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nudSoLuong)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
