@@ -9,6 +9,12 @@ namespace ManagementSales.BUS.Interfaces
     public interface IQuanLyBUS
     {
         /// <summary>
+        /// Lây tất cả đơn hàng
+        /// </summary>
+        /// <returns></returns>
+        System.Data.DataTable GetDataDonHang();
+
+        /// <summary>
         /// Trả về true nếu cập nhật thành công
         /// Thứ tự paramater @idgoods , @namegoods , @price , @number , @notice 
         /// </summary>

@@ -12,6 +12,25 @@ namespace ManagementSales.BUS.Interfaces
     public interface IQuanLyThongTinBUS
     {
         /// <summary>
+        /// Trả về giá trị MaHoaDon
+        /// </summary>
+        /// <param name="MaKH"></param>
+        /// <param name="LoaiHD"></param>
+        /// <param name="MaNV"></param>
+        /// <param name="NgayLap"></param>
+        /// <param name="TenNV"></param>
+        /// <returns></returns>
+        object GetMaHoaDon(int MaKH, string LoaiHD, int MaNV, string NgayLap, string TenNV);
+
+        /// <summary>
+        /// Chèn dữ liệu HoaDon vào database
+        /// Với các giá trị theo thứ tự MaKH,LoaiHoaDon,MaNV, NgayLap,NguoiLap
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        bool InsertHoaDon(object[] values);
+
+        /// <summary>
         /// Lấy khách hàng theo số điện thoại
         /// </summary>
         /// <param name="sdt"></param>

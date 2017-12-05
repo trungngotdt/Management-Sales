@@ -16,11 +16,13 @@ namespace ManagementSales
 {
     public partial class frmQuanLyThongTin : Form
     {
-        private QuanLyThongTinBUS quanLyThongTin { get => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<QuanLyThongTinBUS>(); }
+        //private QuanLyThongTinBUS quanLyThongTin { get => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<QuanLyThongTinBUS>(); }
+        private IQuanLyThongTinBUS quanLyThongTin;
 
-        public frmQuanLyThongTin()
+        public frmQuanLyThongTin(IQuanLyThongTinBUS quanLyThongTinBUS)
         {
             InitializeComponent();
+            this.quanLyThongTin = quanLyThongTinBUS;
             Loading();
         }
 
@@ -353,8 +355,10 @@ namespace ManagementSales
                     var dialogResult = MessageBox.Show("Số điện thoại không tồn tại.\n Chọn Yes nếu muốn tạo mới và No để quay về", "Lỗi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        frmThemKhachHang frmThemKhachHang = new frmThemKhachHang();
-                        frmThemKhachHang.ShowDialog();
+                        using (var frmThemKhachHang = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmThemKhachHang>())
+                        {
+                            frmThemKhachHang.ShowDialog();
+                        }
                     }
                 }
                 btnCapNhat.Enabled = false;
@@ -809,8 +813,10 @@ namespace ManagementSales
                     var dialogResult = MessageBox.Show("Số điện thoại không tồn tại\n Chọn YES khi bạn  muốn tạo khách hàng mới và NO ngược lại", "Lỗi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        frmThemKhachHang frmThemKhachHang = new frmThemKhachHang();
-                        frmThemKhachHang.ShowDialog();
+                        using (var frmThemKhachHang = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmThemKhachHang>())
+                        {
+                            frmThemKhachHang.ShowDialog();
+                        }
                     }
                 }
             }
@@ -821,7 +827,7 @@ namespace ManagementSales
         }
 
 
-        private void txtSDT_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtSDT_KeyPress(object sender, KeyPressEventArgs e)
         {
             KhongChoNhapChu(e);
             this.AcceptButton = btnKiemTra;

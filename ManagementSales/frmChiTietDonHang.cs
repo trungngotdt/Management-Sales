@@ -17,11 +17,13 @@ namespace ManagementSales
     {
         private int index;
 
-        public IChiTietDonHangBUS chiTietDonHang { get => ServiceLocator.Current.GetInstance<ChiTietDonHangBUS>(); }
-        public frmChiTietDonHang(int index)
+        public IChiTietDonHangBUS chiTietDonHang;//{ get => ServiceLocator.Current.GetInstance<ChiTietDonHangBUS>(); }
+        public int Index { get => index; set => index = value; }
+
+        public frmChiTietDonHang(IChiTietDonHangBUS chiTietDonHangBUS)
         {
+            this.chiTietDonHang = chiTietDonHangBUS;
             InitializeComponent();
-            this.index = index;
         }
 
 
@@ -42,7 +44,7 @@ namespace ManagementSales
         {
             try
             {
-                dgrvChiTietDonHang.DataSource = chiTietDonHang.GetDataChiTietDonHang(index);
+                dgrvChiTietDonHang.DataSource = chiTietDonHang.GetDataChiTietDonHang(Index);
             }
             catch (Exception ex)
             {

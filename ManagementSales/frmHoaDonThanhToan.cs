@@ -11,16 +11,19 @@ using ManagementSales.DAO;
 using System.Diagnostics;
 using ManagementSales.BUS;
 using Microsoft.Practices.ServiceLocation;
+using ManagementSales.BUS.Interfaces;
 
 namespace ManagementSales
 {
     public partial class frmHoaDonThanhToan : Form
     {
-        public HoaDonThanhToanBUS hoaDonThanhToan { get => ServiceLocator.Current.GetInstance<HoaDonThanhToanBUS>(); }
+        private IHoaDonThanhToanBUS hoaDonThanhToan;
+        //public HoaDonThanhToanBUS hoaDonThanhToan { get => ServiceLocator.Current.GetInstance<HoaDonThanhToanBUS>(); }
         public string TenNhanVien { get; set; }
-        public frmHoaDonThanhToan()
+        public frmHoaDonThanhToan(IHoaDonThanhToanBUS hoaDonThanhToanBUS)
         {
             InitializeComponent();
+            this.hoaDonThanhToan = hoaDonThanhToanBUS;
             Loading();
         }
 
@@ -160,8 +163,12 @@ namespace ManagementSales
                     var dialogResult = MessageBox.Show("Số điện thoại không tồn tại\n Chọn YES khi bạn  muốn tạo khách hàng mới và NO ngược lại", "Lỗi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        frmThemKhachHang frmThemKhachHang = new frmThemKhachHang();
-                        frmThemKhachHang.ShowDialog();
+                        using (var frmThemKhachHang = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmThemKhachHang>())
+                        {
+                            frmThemKhachHang.ShowDialog();
+                        }
+                        //frmThemKhachHang  = new frmThemKhachHang();
+
                     }
                 }
             }

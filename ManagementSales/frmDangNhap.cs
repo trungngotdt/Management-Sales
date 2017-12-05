@@ -10,14 +10,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ManagementSales.BUS.Interfaces;
 
 namespace ManagementSales
 {
     public partial class frmDangNhap : Form
     {
-        public frmDangNhap()
+        private IDangNhapBUS dangNhapBUS;
+
+        public frmDangNhap(IDangNhapBUS dangNhap)
         {
             InitializeComponent();
+            this.dangNhapBUS = dangNhap;
             Loading();
         }
 
@@ -29,7 +33,7 @@ namespace ManagementSales
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
-        public DangNhapBUS dangNhapBUS { get => ServiceLocator.Current.GetInstance<DangNhapBUS>(); }
+        //public DangNhapBUS dangNhapBUS { get => ServiceLocator.Current.GetInstance<DangNhapBUS>(); }
 
         /// <summary>
         ///Hiển thị thông báo khi có bất kì <see cref="Exception"/> nào bị phát hiện 
@@ -121,6 +125,11 @@ namespace ManagementSales
         }
 
         private void frmDangNhap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+           
+        }
+
+        private void frmDangNhap_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.CloseFrm = true;
             Program.OpenFrmDangNhap = false;

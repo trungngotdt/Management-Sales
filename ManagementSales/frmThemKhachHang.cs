@@ -9,17 +9,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ManagementSales.BUS.Interfaces;
 
 namespace ManagementSales
 {
     public partial class frmThemKhachHang : Form
     {
-        public frmThemKhachHang()
+        private IThemKhachHangBUS themKhachHang;// { get => ServiceLocator.Current.GetInstance<ThemKhachHangBUS>(); }
+
+        public frmThemKhachHang(IThemKhachHangBUS themKhachHangBUS)
         {
+            this.themKhachHang = themKhachHangBUS;
             InitializeComponent();
         }
-
-        private ThemKhachHangBUS themKhachHang { get => ServiceLocator.Current.GetInstance<ThemKhachHangBUS>(); }
 
 
         /// <summary>
@@ -88,7 +90,8 @@ namespace ManagementSales
             var checkTen = String.IsNullOrEmpty(txtTenKhachHang.Text) || String.IsNullOrWhiteSpace(txtTenKhachHang.Text);
             var chechDiaChi = String.IsNullOrEmpty(txtDiaChi.Text) || String.IsNullOrWhiteSpace(txtDiaChi.Text);
             var chechLoaiKH = String.IsNullOrEmpty(txtLoaiKH.Text) || String.IsNullOrWhiteSpace(txtLoaiKH.Text);
-            var checkTextBox = chechDiaChi || chechkSDT || chechLoaiKH || checkTen;
+            var checkGioiTinh = !(cboNam.Checked || cboNu.Checked);
+            var checkTextBox = chechDiaChi || chechkSDT || chechLoaiKH || checkTen||checkGioiTinh;
             return checkTextBox;
         }
     }

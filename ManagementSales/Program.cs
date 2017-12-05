@@ -58,25 +58,32 @@ namespace ManagementSales
                 fileCreate.Close();
             }
 
-            while (CloseFrm!=true)
-            {
-                Application.Run(new frmDangNhap());//new frmQuanLyThongTin());//frmHoaDonThanhToan());//new frmQuanLy());//
 
+
+            while (CloseFrm != true)
+            {
+                var list = ServiceLocator.Current.GetAllInstances<ChiTietDonHangBUS>();
+                var dangNhap = ServiceLocator.Current.GetInstance<frmDangNhap>();
+                var hoaDonThanhToan = ServiceLocator.Current.GetInstance<frmHoaDonThanhToan>();
+                var quanLyThongTin = ServiceLocator.Current.GetInstance<frmQuanLyThongTin>();
+                var quanLy = ServiceLocator.Current.GetInstance<frmQuanLy>();
+                //new frmQuanLyThongTin());//frmHoaDonThanhToan());//new frmQuanLy());//
+                Application.Run(dangNhap);
                 if (OpenFrmDangNhap)
                 {
-                    Application.Run(new frmDangNhap());
+                    Application.Run(dangNhap);
                 }
                 else if (OpenFrmQuanLyThongTin)
                 {
-                    Application.Run(new frmQuanLyThongTin());
+                    Application.Run(quanLyThongTin);
                 }
                 else if (OpenFrmHoaDonThanhToan)
                 {
-                    Application.Run(new frmHoaDonThanhToan());
+                    Application.Run(hoaDonThanhToan);
                 }
                 else if (OpenFrmQuanLy)
                 {
-                    Application.Run(new frmQuanLy());
+                    Application.Run(quanLy);
                 }
             }
 

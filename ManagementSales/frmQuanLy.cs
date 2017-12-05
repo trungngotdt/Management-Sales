@@ -1,4 +1,5 @@
 ﻿using ManagementSales.BUS;
+using ManagementSales.BUS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,10 +14,12 @@ namespace ManagementSales
 {
     public partial class frmQuanLy : Form
     {
-        private QuanLyBUS quanLy { get => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<QuanLyBUS>(); }
+        //private QuanLyBUS quanLy { get => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<QuanLyBUS>(); }
+        private IQuanLyBUS quanLy;
 
-        public frmQuanLy()
+        public frmQuanLy(IQuanLyBUS quanLyBUS )
         {
+            this.quanLy = quanLyBUS;
             InitializeComponent();
         }
 
@@ -707,8 +710,9 @@ namespace ManagementSales
             {
                 var index = dgrvDonHang.SelectedRows.OfType<DataGridViewRow>().Select(p => p.Cells[0].Value.ToString()).Single();
                 //var maHD=dgrvDonHang.Rows[dgrvDonHang.sele]
-                using (var chiTietDonHang=new frmChiTietDonHang(int.Parse( index)))
+                using (var chiTietDonHang = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmChiTietDonHang>())
                 {
+                    chiTietDonHang.Index = int.Parse(index);
                     chiTietDonHang.ShowDialog();
                 }
             }

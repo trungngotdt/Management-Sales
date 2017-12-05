@@ -63,9 +63,9 @@ namespace ManagementSales.BUS.Tests
             //mockIDataProvider.VerifyAll();
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void LogTest(bool checkFileExist)
+        [TestCase( "A")]
+        [TestCase("B")]
+        public void LogTest(string content)
         {
             string path = Path.GetTempPath() + "\\log.txt";
             var file = File.Create(path);

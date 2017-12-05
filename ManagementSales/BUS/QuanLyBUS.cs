@@ -17,6 +17,10 @@ namespace ManagementSales.BUS
             this.dataProvider = data;
         }
 
+        /// <summary>
+        /// Lây tất cả đơn hàng
+        /// </summary>
+        /// <returns></returns>
         public DataTable GetDataDonHang()
         {
 
