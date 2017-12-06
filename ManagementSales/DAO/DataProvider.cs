@@ -22,6 +22,7 @@ namespace ManagementSales.DAO
         /// <returns></returns>
         public int ExecuteNonQuery(string query, object[] value = null)
         {
+            
             try
             {
                 int count = -1;
