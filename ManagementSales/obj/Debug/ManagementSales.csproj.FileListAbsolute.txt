@@ -104,3 +104,4 @@ C:\Users\Tran\Documents\Git\Management-Sales\ManagementSales\obj\Debug\Managemen
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSales\obj\Debug\ManagementSales.csproj.CoreCompileInputs.cache
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSales\obj\Debug\ManagementSales.exe
 C:\Users\Tran\Documents\Git\Management-Sales\ManagementSales\obj\Debug\ManagementSales.pdb
+C:\Users\Tran\Documents\Git\Management-Sales\ManagementSales\obj\Debug\ManagementSales.frmChangeInfo.resources

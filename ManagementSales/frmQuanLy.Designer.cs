@@ -97,6 +97,7 @@
             this.btnHienThiChiTietDonHang = new System.Windows.Forms.Button();
             this.btnHienThiDonHang = new System.Windows.Forms.Button();
             this.dgrvDonHang = new System.Windows.Forms.DataGridView();
+            this.btnChangeInfo = new System.Windows.Forms.Button();
             this.tabPgKhach.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgrvKhachHang)).BeginInit();
@@ -116,21 +117,21 @@
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(89, 12);
+            this.txtID.Location = new System.Drawing.Point(183, 18);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(100, 20);
             this.txtID.TabIndex = 1;
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(310, 18);
+            this.txtName.Location = new System.Drawing.Point(335, 18);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(100, 20);
             this.txtName.TabIndex = 2;
             // 
             // txtRole
             // 
-            this.txtRole.Location = new System.Drawing.Point(533, 18);
+            this.txtRole.Location = new System.Drawing.Point(486, 18);
             this.txtRole.Name = "txtRole";
             this.txtRole.Size = new System.Drawing.Size(100, 20);
             this.txtRole.TabIndex = 3;
@@ -807,11 +808,22 @@
             this.dgrvDonHang.Size = new System.Drawing.Size(706, 239);
             this.dgrvDonHang.TabIndex = 0;
             // 
+            // btnChangeInfo
+            // 
+            this.btnChangeInfo.Location = new System.Drawing.Point(29, 10);
+            this.btnChangeInfo.Name = "btnChangeInfo";
+            this.btnChangeInfo.Size = new System.Drawing.Size(96, 23);
+            this.btnChangeInfo.TabIndex = 5;
+            this.btnChangeInfo.Text = "Đổi thông tin";
+            this.btnChangeInfo.UseVisualStyleBackColor = true;
+            this.btnChangeInfo.Click += new System.EventHandler(this.btnChangeInfo_Click);
+            // 
             // frmQuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(751, 484);
+            this.Controls.Add(this.btnChangeInfo);
             this.Controls.Add(this.txtRole);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtID);
@@ -913,5 +925,6 @@
         private System.Windows.Forms.Button btnHienThiChiTietDonHang;
         private System.Windows.Forms.Button btnHienThiDonHang;
         private System.Windows.Forms.DataGridView dgrvDonHang;
+        private System.Windows.Forms.Button btnChangeInfo;
     }
 }

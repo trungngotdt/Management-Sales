@@ -48,7 +48,7 @@ namespace ManagementSales
             unityContainer.RegisterType<IQuanLyThongTinBUS, QuanLyThongTinBUS>();
             unityContainer.RegisterType<IQuanLyBUS, QuanLyBUS>();
             unityContainer.RegisterType<IChiTietDonHangBUS, ChiTietDonHangBUS>();
-
+            unityContainer.RegisterType<IChangeInfoBUS, ChangeInfoBUS>();
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(unityContainer));
             string path = Application.StartupPath + "\\log.txt";
             var checkFileExist = File.Exists(path);

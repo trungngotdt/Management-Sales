@@ -164,6 +164,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtTenKhachHang);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmThemKhachHang";
             this.Text = "Thêm Khách Hàng";
             this.groupBox1.ResumeLayout(false);

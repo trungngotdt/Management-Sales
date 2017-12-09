@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Practices.ServiceLocation;
 
 namespace ManagementSales
 {
@@ -841,6 +842,15 @@ namespace ManagementSales
             Program.OpenFrmDangNhap = true;
             Program.OpenFrmQuanLyThongTin = false;
             Program.CloseFrm = false;
+        }
+
+        private void btnChangeInfo_Click(object sender, EventArgs e)
+        {
+
+            using (var fromChangeInfo = ServiceLocator.Current.GetInstance<frmChangeInfo>())
+            {
+                fromChangeInfo.ShowDialog();
+            }
         }
     }
 }

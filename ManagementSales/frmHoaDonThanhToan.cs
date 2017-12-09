@@ -24,13 +24,13 @@ namespace ManagementSales
         {
             InitializeComponent();
             this.hoaDonThanhToan = hoaDonThanhToanBUS;
-            Loading();
         }
 
         public void Loading()
         {
             try
             {
+                txtNameStaff.Text = Program.NameStaff;
 
                 txtSDTKhachHang.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 txtSDTKhachHang.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -39,7 +39,7 @@ namespace ManagementSales
                 lvwChiTietHoaDon.Columns.Add(new ColumnHeader() { Text = "Tên Hàng" });
                 lvwChiTietHoaDon.Columns.Add(new ColumnHeader() { Text = "Đơn Giá" });
                 lvwChiTietHoaDon.Columns.Add(new ColumnHeader() { Text = "Số Lượng" });
-                txtNameStaff.Text = Program.NameStaff;
+
                 DisEnableControl();
             }
             catch (Exception ex)
@@ -205,6 +205,19 @@ namespace ManagementSales
             Program.OpenFrmDangNhap = true;
             Program.OpenFrmHoaDonThanhToan = false;
             Program.CloseFrm = false;
+        }
+
+        private void BtnChangeInfo_Click(object sender, EventArgs e)
+        {
+            using (var fromChangeInfo = ServiceLocator.Current.GetInstance<frmChangeInfo>())
+            {
+                fromChangeInfo.ShowDialog();
+            }
+        }
+
+        private void frmHoaDonThanhToan_Load(object sender, EventArgs e)
+        {
+            Loading();
         }
     }
 }

@@ -84,7 +84,8 @@ namespace ManagementSales.BUS
         {
             try
             {
-                return dataProvider.ExecuteScalar("EXEC USP_GetMaNVByNameSignIn @name", new object[] { name }).ToString();
+                var id = dataProvider.ExecuteScalar("EXEC USP_GetMaNVByNameSignIn @name", new object[] { name });
+                return id==null?"null":id.ToString();
             }
             catch (Exception ex)
             {

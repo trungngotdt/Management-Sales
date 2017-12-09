@@ -89,6 +89,7 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtRole = new System.Windows.Forms.TextBox();
+            this.btnChangeInfo = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -751,15 +752,28 @@
             this.txtRole.Size = new System.Drawing.Size(100, 20);
             this.txtRole.TabIndex = 3;
             // 
+            // btnChangeInfo
+            // 
+            this.btnChangeInfo.Location = new System.Drawing.Point(12, 4);
+            this.btnChangeInfo.Name = "btnChangeInfo";
+            this.btnChangeInfo.Size = new System.Drawing.Size(96, 23);
+            this.btnChangeInfo.TabIndex = 4;
+            this.btnChangeInfo.Text = "Đổi thông tin";
+            this.btnChangeInfo.UseVisualStyleBackColor = true;
+            this.btnChangeInfo.Click += new System.EventHandler(this.btnChangeInfo_Click);
+            // 
             // frmQuanLyThongTin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(713, 510);
+            this.Controls.Add(this.btnChangeInfo);
             this.Controls.Add(this.txtRole);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.tabControl1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmQuanLyThongTin";
             this.Text = "Quản Lý Thông Tin";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuanLyThongTin_FormClosing);
@@ -851,5 +865,6 @@
         private System.Windows.Forms.TextBox txtSDT;
         private System.Windows.Forms.TextBox txtTenKH;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnChangeInfo;
     }
 }

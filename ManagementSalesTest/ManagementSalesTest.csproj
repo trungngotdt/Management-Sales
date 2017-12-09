@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\ChangeInfoTest.cs" />
     <Compile Include="BUS\ChiTietDonHangBUSTest.cs" />
     <Compile Include="BUS\DangNhapBUSTests.cs" />
     <Compile Include="BUS\HoaDonThanhToanBUSTest.cs" />

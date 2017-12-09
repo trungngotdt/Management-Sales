@@ -85,7 +85,8 @@ namespace ManagementSales
                         string path = Application.StartupPath + "\\log.txt";
                         dangNhapBUS.Log("Name :"+txtName.Text+"  Time : "+DateTime.Now.ToLongDateString(),path);
                         MessageBox.Show("Đăng Nhập thành công", "THÔNG BÁO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Program.IDStaff = dangNhapBUS.MaNV(txtName.Text);
+                        var id= dangNhapBUS.MaNV(txtName.Text);
+                        Program.IDStaff = id;
                         Program.NameStaff = dangNhapBUS.TenNV(int.Parse(Program.IDStaff));
                         var chucVu = dangNhapBUS.ChucVu(txtName.Text);
                         OpenAnOtherFrom(chucVu);

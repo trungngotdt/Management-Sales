@@ -389,6 +389,7 @@ namespace ManagementSales
             }
             try
             {
+                //Mật khẩu là SDT
                 var isInsert = quanLy.InsertNV(new object[] { txtTenNV.Text, txtChucVuNV.Text, txtDiaChiNV.Text, txtSDTNV.Text, txtEmailNV.Text });
                 if (isInsert)
                 {
@@ -723,6 +724,15 @@ namespace ManagementSales
             Program.OpenFrmDangNhap = true;
             Program.OpenFrmQuanLy = false;
             Program.CloseFrm = false;
+        }
+
+        private void btnChangeInfo_Click(object sender, EventArgs e)
+        {
+
+            using (var fromChangeInfo = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmChangeInfo>())
+            {
+                fromChangeInfo.ShowDialog();
+            }
         }
     }
 }

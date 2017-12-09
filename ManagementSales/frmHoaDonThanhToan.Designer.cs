@@ -44,6 +44,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnChangeInfo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudSoLuong)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -95,7 +96,7 @@
             // 
             // btnThanhToan
             // 
-            this.btnThanhToan.Location = new System.Drawing.Point(627, 390);
+            this.btnThanhToan.Location = new System.Drawing.Point(629, 411);
             this.btnThanhToan.Name = "btnThanhToan";
             this.btnThanhToan.Size = new System.Drawing.Size(75, 23);
             this.btnThanhToan.TabIndex = 10;
@@ -116,7 +117,7 @@
             // 
             this.lvwChiTietHoaDon.FullRowSelect = true;
             this.lvwChiTietHoaDon.GridLines = true;
-            this.lvwChiTietHoaDon.Location = new System.Drawing.Point(12, 123);
+            this.lvwChiTietHoaDon.Location = new System.Drawing.Point(14, 144);
             this.lvwChiTietHoaDon.MultiSelect = false;
             this.lvwChiTietHoaDon.Name = "lvwChiTietHoaDon";
             this.lvwChiTietHoaDon.Size = new System.Drawing.Size(690, 252);
@@ -179,7 +180,7 @@
             this.groupBox1.Controls.Add(this.txtNameStaff);
             this.groupBox1.Controls.Add(this.txtSDTKhachHang);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 17);
+            this.groupBox1.Location = new System.Drawing.Point(14, 38);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(336, 100);
             this.groupBox1.TabIndex = 18;
@@ -192,7 +193,7 @@
             this.groupBox2.Controls.Add(this.btnThemHang);
             this.groupBox2.Controls.Add(this.nudSoLuong);
             this.groupBox2.Controls.Add(this.cboTenHang);
-            this.groupBox2.Location = new System.Drawing.Point(366, 17);
+            this.groupBox2.Location = new System.Drawing.Point(368, 38);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(336, 100);
             this.groupBox2.TabIndex = 19;
@@ -216,18 +217,32 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Tên Hàng";
             // 
+            // btnChangeInfo
+            // 
+            this.btnChangeInfo.Location = new System.Drawing.Point(594, 9);
+            this.btnChangeInfo.Name = "btnChangeInfo";
+            this.btnChangeInfo.Size = new System.Drawing.Size(104, 23);
+            this.btnChangeInfo.TabIndex = 20;
+            this.btnChangeInfo.Text = "Đổi thông tin";
+            this.btnChangeInfo.UseVisualStyleBackColor = true;
+            this.btnChangeInfo.Click += new System.EventHandler(this.BtnChangeInfo_Click);
+            // 
             // frmHoaDonThanhToan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 425);
+            this.ClientSize = new System.Drawing.Size(716, 446);
+            this.Controls.Add(this.btnChangeInfo);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lvwChiTietHoaDon);
             this.Controls.Add(this.btnThanhToan);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmHoaDonThanhToan";
             this.Text = "Hóa Đơn Thanh Toán";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmHoaDonThanhToan_FormClosing);
+            this.Load += new System.EventHandler(this.frmHoaDonThanhToan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudSoLuong)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -255,5 +270,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnChangeInfo;
     }
 }

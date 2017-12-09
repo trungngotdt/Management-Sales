@@ -95,9 +95,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\ChangeInfoBUS.cs" />
     <Compile Include="BUS\ChiTietDonHangBUS.cs" />
     <Compile Include="BUS\DangNhapBUS.cs" />
     <Compile Include="BUS\HoaDonThanhToanBUS.cs" />
+    <Compile Include="BUS\Interfaces\IChangeInfoBUS.cs" />
     <Compile Include="BUS\Interfaces\IChiTietDonHangBUS.cs" />
     <Compile Include="BUS\Interfaces\IDangNhapBUS.cs" />
     <Compile Include="BUS\Interfaces\IHoaDonThanhToanBUS.cs" />
@@ -107,6 +109,12 @@
     <Compile Include="BUS\QuanLyBUS.cs" />
     <Compile Include="BUS\QuanLyThongTinBUS.cs" />
     <Compile Include="BUS\ThemKhachHangBUS.cs" />
+    <Compile Include="frmChangeInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChangeInfo.Designer.cs">
+      <DependentUpon>frmChangeInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="crpPhieuHang.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -164,6 +172,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmChangeInfo.resx">
+      <DependentUpon>frmChangeInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="crpPhieuHang.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crpPhieuHang.cs</LastGenOutput>
