@@ -760,7 +760,7 @@
             this.btnChangeInfo.TabIndex = 4;
             this.btnChangeInfo.Text = "Đổi thông tin";
             this.btnChangeInfo.UseVisualStyleBackColor = true;
-            this.btnChangeInfo.Click += new System.EventHandler(this.btnChangeInfo_Click);
+            this.btnChangeInfo.Click += new System.EventHandler(this.BtnChangeInfo_Click);
             // 
             // frmQuanLyThongTin
             // 
@@ -776,7 +776,8 @@
             this.MinimizeBox = false;
             this.Name = "frmQuanLyThongTin";
             this.Text = "Quản Lý Thông Tin";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuanLyThongTin_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmQuanLyThongTin_FormClosing);
+            this.Load += new System.EventHandler(this.FrmQuanLyThongTin_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);

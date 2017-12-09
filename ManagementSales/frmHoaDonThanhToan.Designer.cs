@@ -45,6 +45,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnChangeInfo = new System.Windows.Forms.Button();
+            this.btnSua = new System.Windows.Forms.Button();
+            this.btnXoa = new System.Windows.Forms.Button();
+            this.btnCapNhat = new System.Windows.Forms.Button();
+            this.btnHuyDon = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudSoLuong)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -62,10 +66,10 @@
             // txtTenKhachHang
             // 
             this.txtTenKhachHang.Enabled = false;
-            this.txtTenKhachHang.Location = new System.Drawing.Point(80, 13);
+            this.txtTenKhachHang.Location = new System.Drawing.Point(76, 13);
             this.txtTenKhachHang.Name = "txtTenKhachHang";
             this.txtTenKhachHang.ReadOnly = true;
-            this.txtTenKhachHang.Size = new System.Drawing.Size(100, 20);
+            this.txtTenKhachHang.Size = new System.Drawing.Size(104, 20);
             this.txtTenKhachHang.TabIndex = 0;
             // 
             // txtSDTKhachHang
@@ -124,6 +128,7 @@
             this.lvwChiTietHoaDon.TabIndex = 12;
             this.lvwChiTietHoaDon.UseCompatibleStateImageBehavior = false;
             this.lvwChiTietHoaDon.View = System.Windows.Forms.View.Details;
+            this.lvwChiTietHoaDon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LvwChiTietHoaDon_MouseClick);
             // 
             // btnThemHang
             // 
@@ -227,11 +232,55 @@
             this.btnChangeInfo.UseVisualStyleBackColor = true;
             this.btnChangeInfo.Click += new System.EventHandler(this.BtnChangeInfo_Click);
             // 
+            // btnSua
+            // 
+            this.btnSua.Location = new System.Drawing.Point(13, 411);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(75, 23);
+            this.btnSua.TabIndex = 21;
+            this.btnSua.Text = "Sửa";
+            this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.BtnSua_Click);
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.Location = new System.Drawing.Point(119, 411);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(75, 23);
+            this.btnXoa.TabIndex = 22;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.BtnXoa_Click);
+            // 
+            // btnCapNhat
+            // 
+            this.btnCapNhat.Location = new System.Drawing.Point(240, 411);
+            this.btnCapNhat.Name = "btnCapNhat";
+            this.btnCapNhat.Size = new System.Drawing.Size(75, 23);
+            this.btnCapNhat.TabIndex = 23;
+            this.btnCapNhat.Text = "Cập Nhật";
+            this.btnCapNhat.UseVisualStyleBackColor = true;
+            this.btnCapNhat.Click += new System.EventHandler(this.BtnCapNhat_Click);
+            // 
+            // btnHuyDon
+            // 
+            this.btnHuyDon.Location = new System.Drawing.Point(356, 411);
+            this.btnHuyDon.Name = "btnHuyDon";
+            this.btnHuyDon.Size = new System.Drawing.Size(75, 23);
+            this.btnHuyDon.TabIndex = 24;
+            this.btnHuyDon.Text = "Hủy Đơn";
+            this.btnHuyDon.UseVisualStyleBackColor = true;
+            this.btnHuyDon.Click += new System.EventHandler(this.BtnHuyDon_Click);
+            // 
             // frmHoaDonThanhToan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(716, 446);
+            this.Controls.Add(this.btnHuyDon);
+            this.Controls.Add(this.btnCapNhat);
+            this.Controls.Add(this.btnXoa);
+            this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnChangeInfo);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -241,8 +290,8 @@
             this.MinimizeBox = false;
             this.Name = "frmHoaDonThanhToan";
             this.Text = "Hóa Đơn Thanh Toán";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmHoaDonThanhToan_FormClosing);
-            this.Load += new System.EventHandler(this.frmHoaDonThanhToan_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmHoaDonThanhToan_FormClosing);
+            this.Load += new System.EventHandler(this.FrmHoaDonThanhToan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudSoLuong)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -271,5 +320,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnChangeInfo;
+        private System.Windows.Forms.Button btnSua;
+        private System.Windows.Forms.Button btnXoa;
+        private System.Windows.Forms.Button btnCapNhat;
+        private System.Windows.Forms.Button btnHuyDon;
     }
 }

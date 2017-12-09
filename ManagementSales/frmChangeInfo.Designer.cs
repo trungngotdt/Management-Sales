@@ -158,7 +158,7 @@
             this.groupBox3.Size = new System.Drawing.Size(150, 100);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Text = "Lựa chọn";
             // 
             // rdbChangeBoth
             // 
@@ -198,6 +198,7 @@
             // 
             // frmChangeInfo
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 261);
@@ -208,7 +209,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmChangeInfo";
-            this.Text = "ChangePass";
+            this.Text = "Đổi thông tin";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

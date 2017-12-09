@@ -816,7 +816,7 @@
             this.btnChangeInfo.TabIndex = 5;
             this.btnChangeInfo.Text = "Đổi thông tin";
             this.btnChangeInfo.UseVisualStyleBackColor = true;
-            this.btnChangeInfo.Click += new System.EventHandler(this.btnChangeInfo_Click);
+            this.btnChangeInfo.Click += new System.EventHandler(this.BtnChangeInfo_Click);
             // 
             // frmQuanLy
             // 
@@ -828,10 +828,12 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.tabCnQuanLy);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmQuanLy";
             this.Text = "Quản Lý";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuanLy_FormClosing);
-            this.Load += new System.EventHandler(this.frmQuanLy_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmQuanLy_FormClosing);
+            this.Load += new System.EventHandler(this.FrmQuanLy_Load);
             this.tabPgKhach.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgrvKhachHang)).EndInit();

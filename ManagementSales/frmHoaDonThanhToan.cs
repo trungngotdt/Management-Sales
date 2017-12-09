@@ -39,7 +39,7 @@ namespace ManagementSales
                 lvwChiTietHoaDon.Columns.Add(new ColumnHeader() { Text = "Tên Hàng" });
                 lvwChiTietHoaDon.Columns.Add(new ColumnHeader() { Text = "Đơn Giá" });
                 lvwChiTietHoaDon.Columns.Add(new ColumnHeader() { Text = "Số Lượng" });
-
+                FlagForButton(true);
                 DisEnableControl();
             }
             catch (Exception ex)
@@ -65,17 +65,20 @@ namespace ManagementSales
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
-                var maKH = hoaDonThanhToan.GetMaKH(txtSDTKhachHang.Text);
-                var date = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + " " + DateTime.Now.ToLongTimeString();
-                hoaDonThanhToan.InsertHoaDon(new object[] { maKH, "Bán Hàng", Program.IDStaff, date, txtNameStaff.Text });
+
                 var kiemtra = lvwChiTietHoaDon.Items.Count == 0;
                 if (kiemtra)
                 {
-                    MessageBox.Show("Điền đơn hàng");
+                    MessageBox.Show("Điền đơn hàng","Cảnh Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
                 }
                 else
                 {
+                    this.Cursor = Cursors.WaitCursor;
+                    var maKH = hoaDonThanhToan.GetMaKH(txtSDTKhachHang.Text);
+                    //var day= DateTime.Now.Day>10?.ToString()
+                    var date = DateTime.Now.GetDateTimeFormats()[93].ToString();//DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + " " + DateTime.Now.ToLongTimeString();
+                    hoaDonThanhToan.InsertHoaDon(new object[] { maKH, "Bán Hàng", Program.IDStaff, date, Program.NameStaff });
                     var maHD = hoaDonThanhToan.GetMaHoaDon(int.Parse(maKH.ToString()), "Bán Hàng", int.Parse(Program.IDStaff.ToString()), date, txtNameStaff.Text);
                     foreach (ListViewItem item in lvwChiTietHoaDon.Items)
                     {
@@ -135,6 +138,7 @@ namespace ManagementSales
             {
                 e.Handled = true;
             }
+            this.AcceptButton = btnKiemTraKH;
         }
 
 
@@ -142,7 +146,6 @@ namespace ManagementSales
         {
             try
             {
-
                 var sdtKH = txtSDTKhachHang.Text;
                 var kiemTra = String.IsNullOrEmpty(sdtKH) || String.IsNullOrWhiteSpace(sdtKH);
                 if (kiemTra)
@@ -156,6 +159,7 @@ namespace ManagementSales
                 if (tenKH != null)
                 {
                     EnableControl();
+                    this.AcceptButton = btnThemHang;
                 }
                 else
                 {
@@ -168,7 +172,6 @@ namespace ManagementSales
                             frmThemKhachHang.ShowDialog();
                         }
                         //frmThemKhachHang  = new frmThemKhachHang();
-
                     }
                 }
             }
@@ -199,7 +202,7 @@ namespace ManagementSales
             btnThanhToan.Enabled = true;
         }
 
-        private void frmHoaDonThanhToan_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmHoaDonThanhToan_FormClosing(object sender, FormClosingEventArgs e)
         {
 
             Program.OpenFrmDangNhap = true;
@@ -215,9 +218,93 @@ namespace ManagementSales
             }
         }
 
-        private void frmHoaDonThanhToan_Load(object sender, EventArgs e)
+        private void FrmHoaDonThanhToan_Load(object sender, EventArgs e)
         {
             Loading();
+        }
+
+        private void BtnSua_Click(object sender, EventArgs e)
+        {
+
+            var text = btnSua.Text;
+            if (text.Equals("Sửa"))
+            {
+                btnSua.Text = "Xong";
+                FlagForButton(false);
+            }
+            else
+            {
+                btnSua.Text = "Sửa";
+                FlagForButton(true);
+            }
+        }
+
+        private void FlagForButton(bool flag)
+        {
+            btnKiemTraKH.Enabled = flag;
+            btnThemHang.Enabled = flag;
+            btnThanhToan.Enabled = flag;
+            btnHuyDon.Enabled = flag;
+            btnHuyDon.Enabled = flag;
+            btnCapNhat.Enabled = !flag;
+            btnXoa.Enabled = flag;
+            //throw new NotImplementedException();
+        }
+
+        private void BtnXoa_Click(object sender, EventArgs e)
+        {
+            if (KiemTraListViewSelect())
+            {
+                MessageBox.Show("Chọn Item trước", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+            var index = lvwChiTietHoaDon.SelectedIndices.OfType<int>().Single();
+            lvwChiTietHoaDon.Items[index].Remove();
+        }
+
+        private bool KiemTraListViewSelect()
+        {
+
+            var beSelect = lvwChiTietHoaDon.SelectedIndices.Count > 0;
+            if (beSelect)
+            {
+                return false;
+            }
+            return true;
+            //throw new NotImplementedException();
+        }
+
+        private void BtnCapNhat_Click(object sender, EventArgs e)
+        {
+            var index = lvwChiTietHoaDon.SelectedIndices.OfType<int>().Single();
+            var items = lvwChiTietHoaDon.Items[index];
+            var maHang = items.SubItems[0].Text;
+            lvwChiTietHoaDon.Items[index].Remove();
+            BtnThemHang_Click(sender, e);
+        }
+
+        private void BtnHuyDon_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Bạn có chắc không", "Hủy hóa đơn", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                lvwChiTietHoaDon.Items.Clear();
+            }
+        }
+
+        private void LvwChiTietHoaDon_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            var checkValue = btnSua.Text.Equals("Xong") && lvwChiTietHoaDon.SelectedIndices.Count > 0;
+            if (checkValue)
+            {
+                var index = lvwChiTietHoaDon.SelectedIndices.OfType<int>().Single();
+                var items = lvwChiTietHoaDon.Items[index];
+
+                cboTenHang.Text = items.SubItems[0].Text;
+                var soLuong = items.SubItems[2].Text.ToString();
+                nudSoLuong.Value = decimal.Parse(soLuong);
+            }
         }
     }
 }

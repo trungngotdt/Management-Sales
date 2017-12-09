@@ -23,7 +23,7 @@ namespace ManagementSales
             InitializeComponent();
         }
 
-        private void frmQuanLy_Load(object sender, EventArgs e)
+        private void FrmQuanLy_Load(object sender, EventArgs e)
         {
             FlagForNV(true);
             GetDataNhanVien();
@@ -389,6 +389,13 @@ namespace ManagementSales
             }
             try
             {
+                var checkChucVu = txtChucVuNV.Text.Equals("NV") || txtChucVuNV.Text.Equals("GD") || txtChucVuNV.Text.Equals("TK");
+                if (!checkChucVu)
+                {
+                    this.Cursor = Cursors.Default;
+                    MessageBox.Show("Chức vụ không thể là " + txtChucVuNV.Text+"\nCó 3 chức vụ mặc định : NV,GD,TK","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    return;
+                }
                 //Mật khẩu là SDT
                 var isInsert = quanLy.InsertNV(new object[] { txtTenNV.Text, txtChucVuNV.Text, txtDiaChiNV.Text, txtSDTNV.Text, txtEmailNV.Text });
                 if (isInsert)
@@ -696,6 +703,8 @@ namespace ManagementSales
         }
         #endregion
 
+        #region ChiTietDonHang
+
         private void BtnHienThiDonHang_Click(object sender, EventArgs e)
         {
             GetDataDonHang();
@@ -718,15 +727,16 @@ namespace ManagementSales
                 }
             }
         }
+        #endregion
 
-        private void frmQuanLy_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmQuanLy_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.OpenFrmDangNhap = true;
             Program.OpenFrmQuanLy = false;
             Program.CloseFrm = false;
         }
 
-        private void btnChangeInfo_Click(object sender, EventArgs e)
+        private void BtnChangeInfo_Click(object sender, EventArgs e)
         {
 
             using (var fromChangeInfo = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmChangeInfo>())

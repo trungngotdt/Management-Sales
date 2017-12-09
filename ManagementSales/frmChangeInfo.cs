@@ -41,8 +41,7 @@ namespace ManagementSales
         private void BtnOk_Click(object sender, EventArgs e)
         {
             try
-            {
-                
+            {                
                 bool result = false;
                 if (rdbChangeName.Checked == true)
                 {
@@ -60,7 +59,6 @@ namespace ManagementSales
                 }
                 else if (rdbChangePass.Checked == true)
                 {
-
                     if (txtPass.Text.Trim().Length == 0 || txtRePass.Text.Trim().Length == 0)
                     {
                         MessageBox.Show("Điền vào chỗ trống", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -93,6 +91,10 @@ namespace ManagementSales
                 }
                 var stringResult = result ? "Thành công" : "Thất bại";
                 MessageBox.Show(stringResult,"Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                if (stringResult.Equals("Thành công"))
+                {
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {

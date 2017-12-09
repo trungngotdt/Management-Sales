@@ -124,13 +124,9 @@ namespace ManagementSales
             }
             this.Cursor = Cursors.Default;
         }
+        
 
-        private void frmDangNhap_FormClosing(object sender, FormClosingEventArgs e)
-        {
-           
-        }
-
-        private void frmDangNhap_FormClosed(object sender, FormClosedEventArgs e)
+        private void FrmDangNhap_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.CloseFrm = true;
             Program.OpenFrmDangNhap = false;

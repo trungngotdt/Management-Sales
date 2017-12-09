@@ -24,7 +24,7 @@ namespace ManagementSales
         {
             InitializeComponent();
             this.quanLyThongTin = quanLyThongTinBUS;
-            Loading();
+            //Loading();
         }
 
         #region Common Method
@@ -679,8 +679,8 @@ namespace ManagementSales
                 if (dgrvHang.Rows.Count != 0)
                 {
                     var maKH = quanLyThongTin.GetMaKH(txtSDT.Text);
-                    var date = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + " " + DateTime.Now.ToLongTimeString();
-                    quanLyThongTin.InsertHoaDon(new object[] { maKH, "Nhập", Program.IDStaff, date, txtNameStaff.Text });
+                    var date = DateTime.Now.GetDateTimeFormats()[93].ToString();//DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + " " + DateTime.Now.ToLongTimeString();
+                    quanLyThongTin.InsertHoaDon(new object[] { maKH, "Nhập", Program.IDStaff, date, Program.NameStaff });
                     //var data = new object[] { maKH, "Xuất", Program.IDStaff, date, txtNameStaff.Text };
                     var maHD = quanLyThongTin.GetMaHoaDon(int.Parse(maKH.ToString()), "Nhập", int.Parse(Program.IDStaff.ToString()), date, txtNameStaff.Text);
                     var mess = quanLyThongTin.NhapXuatHang(dgrvHang, true, maHD);
@@ -711,7 +711,7 @@ namespace ManagementSales
                 if (dgrvHang.Rows.Count != 0)
                 {
                     var maKH = quanLyThongTin.GetMaKH(txtSDT.Text);
-                    var date = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + " " + DateTime.Now.ToLongTimeString();
+                    var date = DateTime.Now.GetDateTimeFormats()[93].ToString(); //DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + " " + DateTime.Now.ToLongTimeString();
                     quanLyThongTin.InsertHoaDon(new object[] { maKH, "Xuất", Program.IDStaff, date, txtNameStaff.Text });
                     //var data = new object[] { maKH, "Xuất", Program.IDStaff, date, txtNameStaff.Text };
                     var maHD = quanLyThongTin.GetMaHoaDon(int.Parse(maKH.ToString()), "Xuất", int.Parse(Program.IDStaff.ToString()), date, txtNameStaff.Text);
@@ -836,7 +836,7 @@ namespace ManagementSales
 
         #endregion
 
-        private void frmQuanLyThongTin_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmQuanLyThongTin_FormClosing(object sender, FormClosingEventArgs e)
         {
 
             Program.OpenFrmDangNhap = true;
@@ -844,13 +844,18 @@ namespace ManagementSales
             Program.CloseFrm = false;
         }
 
-        private void btnChangeInfo_Click(object sender, EventArgs e)
+        private void BtnChangeInfo_Click(object sender, EventArgs e)
         {
 
             using (var fromChangeInfo = ServiceLocator.Current.GetInstance<frmChangeInfo>())
             {
                 fromChangeInfo.ShowDialog();
             }
+        }
+
+        private void FrmQuanLyThongTin_Load(object sender, EventArgs e)
+        {
+            Loading();
         }
     }
 }
