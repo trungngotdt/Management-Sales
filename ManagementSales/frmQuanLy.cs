@@ -17,7 +17,7 @@ namespace ManagementSales
         //private QuanLyBUS quanLy { get => Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<QuanLyBUS>(); }
         private IQuanLyBUS quanLy;
 
-        public frmQuanLy(IQuanLyBUS quanLyBUS )
+        public frmQuanLy(IQuanLyBUS quanLyBUS)
         {
             this.quanLy = quanLyBUS;
             InitializeComponent();
@@ -41,8 +41,30 @@ namespace ManagementSales
 
             dgrvNhanVien.ClearSelection();
         }
-        
+
         #region common
+        /// <summary>
+        /// Kiểm tra xem có phải email không
+        /// </summary>
+        /// <param name="emailaddress"></param>
+        /// <returns></returns>
+        public bool IsValidEmail(string emailaddress)
+        {
+            try
+            {
+                if (emailaddress.Trim().Length==0)
+                {
+                    return false;
+                }
+                System.Net.Mail.MailAddress m = new System.Net.Mail.MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///Hiển thị thông báo khi có bất kì <see cref="Exception"/> nào bị phát hiện 
@@ -116,8 +138,9 @@ namespace ManagementSales
             txtGhiChu.Enabled = !flag;
             txtSoLuong.Enabled = !flag;
             txtTenHang.Enabled = !flag;
+            txtMaHang.Enabled = false;
             btnCapNhapHang.Enabled = !flag;
-            btnThemHang.Enabled = !flag;
+            btnThemHang.Enabled = false;
             btnLamSachHang.Enabled = !flag;
         }
 
@@ -273,10 +296,24 @@ namespace ManagementSales
             this.Cursor = Cursors.Default;
         }
 
+        public void InputPhoneNumber(object sender, KeyPressEventArgs e, TextBox textBox)
+        {
+            if (textBox.Text.Length > 12)
+            {
+                e.Handled = true;
+            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+        }
 
         public void InputNumber(object sender, KeyPressEventArgs e)
         {
-
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
@@ -292,20 +329,26 @@ namespace ManagementSales
                 FlagForKH(true);
                 GetDataKhachHang();
                 dgrvKhachHang.ClearSelection();
+                ClearAllTextBoxKH();
+                btnSuaKhach.Text = "Sửa";
             }
             else if (e.TabPage.Name.Equals(tabPgNV.Name))
             {
                 FlagForNV(true);
                 GetDataNhanVien();
                 dgrvNhanVien.ClearSelection();
+                ClearAllTextBoxNV();
+                btnSua.Text = "Sửa";
             }
             else if (e.TabPage.Name.Equals(tabPgHang.Name))
             {
                 FlagForHang(true);
                 GetDataHang();
                 dgrvHang.ClearSelection();
+                ClearAllTextBoxHang();
+                btnSuaHang.Text = "Sửa";
             }
-            else if(e.TabPage.Name.Equals(tagPgDonHang.Name))
+            else if (e.TabPage.Name.Equals(tagPgDonHang.Name))
             {
                 GetDataDonHang();
                 dgrvDonHang.ClearSelection();
@@ -320,7 +363,7 @@ namespace ManagementSales
 
         private void TxtSDTNV_KeyPress(object sender, KeyPressEventArgs e)
         {
-            InputNumber(sender, e);
+            InputPhoneNumber(sender, e,txtSDTNV);
             /*
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -334,7 +377,7 @@ namespace ManagementSales
             if (text.Equals("Sửa"))
             {
                 FlagForNV(false);
-                btnThem.Enabled = true;
+                //btnThem.Enabled = true;
                 btnSua.Text = "Xong";
             }
             else if (text.Equals("Xong"))
@@ -359,6 +402,13 @@ namespace ManagementSales
             }
             try
             {
+                var checkChucVu = txtChucVuNV.Text.Equals("NV") || txtChucVuNV.Text.Equals("GD") || txtChucVuNV.Text.Equals("TK");
+                if (!checkChucVu)
+                {
+                    this.Cursor = Cursors.Default;
+                    MessageBox.Show("Chức vụ không thể là " + txtChucVuNV.Text + "\nCó 3 chức vụ mặc định : NV,GD,TK", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 var isUpdate = quanLy.UpdateNV(new object[] { txtMaNV.Text, txtTenNV.Text, txtChucVuNV.Text, txtDiaChiNV.Text, txtSDTNV.Text, txtEmailNV.Text });
                 if (isUpdate)
                 {
@@ -372,6 +422,7 @@ namespace ManagementSales
             }
             ClearAllTextBoxNV();
             GetDataNhanVien();
+            BtnSua_Click(sender, e);
             this.Cursor = Cursors.Default;
         }
 
@@ -393,7 +444,8 @@ namespace ManagementSales
                 if (!checkChucVu)
                 {
                     this.Cursor = Cursors.Default;
-                    MessageBox.Show("Chức vụ không thể là " + txtChucVuNV.Text+"\nCó 3 chức vụ mặc định : NV,GD,TK","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    
+                    MessageBox.Show("Chức vụ không thể là " + txtChucVuNV.Text + "\nCó 3 chức vụ mặc định : NV,GD,TK", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 //Mật khẩu là SDT
@@ -401,6 +453,10 @@ namespace ManagementSales
                 if (isInsert)
                 {
                     MessageBox.Show("Thêm thành công", "", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Thêm thất bại", " ", MessageBoxButtons.OK);
                 }
             }
             catch (Exception ex)
@@ -410,6 +466,7 @@ namespace ManagementSales
             }
             ClearAllTextBoxNV();
             GetDataNhanVien();
+            BtnSua_Click(sender, e);
             this.Cursor = Cursors.Default;
         }
 
@@ -466,6 +523,13 @@ namespace ManagementSales
             }
             try
             {
+                var checkLoaiKH = txtLoaiKhach.Text.Equals("DT") || txtLoaiKhach.Text.Equals("VIP");
+                if (!checkLoaiKH)
+                {
+                    this.Cursor = Cursors.Default;
+                    MessageBox.Show("Loại khách không thể là " + txtLoaiKhach.Text + "\nCó 2 chức vụ mặc định : DT ,VIP", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 var check = quanLy.InsertKH(new object[] { txtTenKhach.Text, txtSDTKhach.Text, txtGoiTinh.Text, txtDiaChiKhach.Text, txtLoaiKhach.Text });
                 if (check)
                 {
@@ -474,10 +538,17 @@ namespace ManagementSales
             }
             catch (Exception ex)
             {
-                WarningMessageBox(ex);
-                //MessageBox.Show($"Lỗi không thể thêm khách hàng .Lỗi {ex.Message.ToString()}", "Lỗi Thêm Khách Hàng", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                var stri = "Violation of UNIQUE KEY constraint";
+                if (ex.Message.Contains(stri))
+                {
+                    MessageBox.Show("Đã tồn tại số điện thoại khách hàng.Không sử dụng một SDT cho hai người", "SDT Tồn Tại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    WarningMessageBox(ex);
+                }
             }
+            BtnSuaKhach_Click(sender, e);
             ClearAllTextBoxKH();
             GetDataKhachHang();
             this.Cursor = Cursors.Default;
@@ -515,6 +586,13 @@ namespace ManagementSales
             }
             try
             {
+                var checkLoaiKH = txtLoaiKhach.Text.Equals("DT") || txtLoaiKhach.Text.Equals("VIP");
+                if (!checkLoaiKH)
+                {
+                    this.Cursor = Cursors.Default;
+                    MessageBox.Show("Loại khách không thể là " + txtLoaiKhach.Text + "\nCó 2 chức vụ mặc định : DT ,VIP", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 var check = quanLy.UpdateKH(new object[] { txtMaKhach.Text, txtTenKhach.Text, txtSDTKhach.Text, txtGoiTinh.Text, txtDiaChiKhach.Text, txtLoaiKhach.Text });
                 if (check)
                 {
@@ -523,10 +601,18 @@ namespace ManagementSales
             }
             catch (Exception ex)
             {
-                WarningMessageBox(ex);
-                //MessageBox.Show($"Không thể cập nhật thông tin khách hàng.Lỗi {ex.Message.ToString()}", "Lỗi Cập Nhật", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                var stri = "Violation of UNIQUE KEY constraint";
+                if (ex.Message.Contains(stri))
+                {
+                    MessageBox.Show("Đã tồn tại số điện thoại khách hàng.Không sử dụng một SDT cho hai người", "SDT Tồn Tại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    WarningMessageBox(ex);
+                }
             }
+
+            BtnSuaKhach_Click(sender, e);
             ClearAllTextBoxKH();
             GetDataKhachHang();
             this.Cursor = Cursors.Default;
@@ -540,7 +626,13 @@ namespace ManagementSales
 
         private void TxtSDTKhach_KeyPress(object sender, KeyPressEventArgs e)
         {
-            InputNumber(sender, e);
+            InputPhoneNumber(sender, e, txtSDTKhach);
+            /*
+            if (txtSDTKhach.Text.Length<=12)
+            {
+                InputNumber(sender, e);
+            }
+            */
             /*
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -628,7 +720,7 @@ namespace ManagementSales
             txtTenHang.Text = dgrvHang.Rows[index].Cells["TenHang"].Value.ToString();
             txtSoLuong.Text = dgrvHang.Rows[index].Cells["SoLuong"].Value.ToString();
             txtDonGia.Text = dgrvHang.Rows[index].Cells["DonGia"].Value.ToString();
-            txtGhiChu.Text = dgrvHang.Rows[index].Cells["GhiChu"].Value.ToString()==null?"null": dgrvHang.Rows[index].Cells["GhiChu"].Value.ToString();
+            txtGhiChu.Text = dgrvHang.Rows[index].Cells["GhiChu"].Value.ToString() == null ? "null" : dgrvHang.Rows[index].Cells["GhiChu"].Value.ToString();
         }
 
         private void BtnSuaHang_Click(object sender, EventArgs e)
@@ -637,7 +729,8 @@ namespace ManagementSales
             if (text.Equals("Sửa"))
             {
                 FlagForHang(false);
-                btnThemHang.Enabled = true;
+                btnThemHang.Enabled = false;
+
                 btnSuaHang.Text = "Xong";
             }
             else if (text.Equals("Xong"))
@@ -665,6 +758,10 @@ namespace ManagementSales
                 {
                     MessageBox.Show("Cập nhật thành công");
                 }
+                else
+                {
+                    MessageBox.Show("Thất bại");
+                }
             }
             catch (Exception ex)
             {
@@ -674,6 +771,7 @@ namespace ManagementSales
             }
             ClearAllTextBoxHang();
             GetDataHang();
+            BtnSuaHang_Click(sender, e);
             this.Cursor = Cursors.Default;
         }
 
@@ -693,10 +791,19 @@ namespace ManagementSales
             }
             catch (Exception ex)
             {
-                WarningMessageBox(ex);
+                var stri = "Violation of PRIMARY KEY constraint 'PK_Hang'";
+                if (ex.Message.Contains(stri))
+                {
+                    MessageBox.Show("Đã tồn tại hàng", "Hàng Tồn Tại", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    WarningMessageBox(ex);
+                }
                 //MessageBox.Show($"Không thể cập nhật thông tin khách hàng.Lỗi {ex.Message.ToString()}", "Lỗi Cập Nhật", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+            BtnSuaHang_Click(sender, e);
             ClearAllTextBoxHang();
             GetDataHang();
             this.Cursor = Cursors.Default;
@@ -712,7 +819,7 @@ namespace ManagementSales
 
         private void BtnHienThiChiTietDonHang_Click(object sender, EventArgs e)
         {
-            if (dgrvDonHang.SelectedRows==null)
+            if (dgrvDonHang.SelectedRows == null)
             {
                 MessageBox.Show("Test");
             }
@@ -742,6 +849,30 @@ namespace ManagementSales
             using (var fromChangeInfo = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmChangeInfo>())
             {
                 fromChangeInfo.ShowDialog();
+            }
+        }
+        bool checkMail = true;
+        private void TxtEmailNV_Leave(object sender, EventArgs e)
+        {
+            checkMail = IsValidEmail(txtEmailNV.Text);
+            if (!checkMail)
+            {
+                txtEmailNV.Focus();
+            }
+        }
+
+        private void GroupBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (!checkMail)
+            {
+                txtEmailNV.BorderStyle = BorderStyle.None;
+                Pen p = new Pen(Color.Red);
+                Graphics g = e.Graphics;
+                g.DrawRectangle(p, new Rectangle(txtEmailNV.Bounds.X-2, txtEmailNV.Bounds.Y-3 , txtEmailNV.Bounds.Width +1, txtEmailNV.Bounds.Height+3 ));
+            }
+            else
+            {
+                txtEmailNV.BorderStyle = BorderStyle.Fixed3D;
             }
         }
     }

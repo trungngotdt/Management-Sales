@@ -126,11 +126,17 @@ namespace ManagementSales
         //===================================================================================================================//
 
         #region Thống Kê Hàng Hóa 
+        void ClearAllControl()
+        {
+            rdbBeDenLon.Checked = rdbChinhXac.Checked = rdbGanDung.Checked = rdbLonDenBe.Checked = chkDonGia.Checked = chkMaHang.Checked
+                = chkSoLuong.Checked = chkTenHang.Checked = false;
+            txtTen.Text = String.Empty;
+        }
         private void BntHienHangHoa_Click(object sender, EventArgs e)
         {
             try
             {
-
+                ClearAllControl();
                 lvwThongKeHH.Items.Clear();
                 var data = quanLyThongTin.ShowAllHang();
                 AddDataToListView(data, lvwThongKeHH);
@@ -358,6 +364,7 @@ namespace ManagementSales
                     {
                         using (var frmThemKhachHang = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmThemKhachHang>())
                         {
+                            frmThemKhachHang.Sdt = int.Parse(sdtKH.ToString());
                             frmThemKhachHang.ShowDialog();
                         }
                     }
@@ -450,23 +457,59 @@ namespace ManagementSales
                 }
                 var tenHang = cboTenHang.Text;
                 var maHang = rdbHangMoi.Checked == true ? "-1" : quanLyThongTin.GetMaHang(tenHang).ToString();
-                //Kiểm tra xem mặt hàng đó có trong listview chưa nếu có thì tăng mặt hàng đó lên theo số lượng thêm vào
-                bool checkTenHangInListView = lvwChiTietHoaDon.FindItemWithText(tenHang) != null ? true : false;//trả ra true khi tìm thấy có tên hàng trong listview và ngược lại
-                if (checkTenHangInListView)
+                //Kiểm tra xem mặt hàng đó có trong listview chưa nếu có thì tăng mặt hàng đó lên theo số lượng thêm vào lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p=>p.SubItems[1].Text=="PinAAA").Single().SubItems[3].Text
+                bool checkTenHangInListView = lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p => p.SubItems[1].Text == tenHang).FirstOrDefault() != null ? true : false;// lvwChiTietHoaDon.FindItemWithText(tenHang) != null ? true : false;//trả ra true khi tìm thấy có tên hàng trong listview và ngược lại
+                bool newHang = checkTenHangInListView == false ? true : !(lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList()
+                    .Where(p => p.SubItems[1].Text == tenHang).FirstOrDefault()
+                    .SubItems[2].Text.Equals(txtDonGia.Text));
+                bool appended = false;
+                /*
+                bool newHang = checkTenHangInListView ?
+                    (txtDonGia.Text.Trim().Length>0 ? lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList()
+                    .Where(p => p.SubItems[1].Text == tenHang).FirstOrDefault()
+                    .SubItems[2].Text.Equals(txtDonGia.Text):false): true;
+                */
+                //Nếu có hàng trong hóa đơn thì cộng dồn vào
+                if (checkTenHangInListView)//&&newHang==false||checkTenHangInListView&&txtDonGia.Text.Trim().Length<=0)
                 {
-                    //Cái này là cộng dồn vào cột số lượng khi món hàng thêm vào đã có
+                    
+                    /*
                     lvwChiTietHoaDon.FindItemWithText(tenHang).SubItems[3].Text = (int.Parse(lvwChiTietHoaDon.FindItemWithText(tenHang).SubItems[3].Text)
-                        + int.Parse(nudSoLuong.Value.ToString())).ToString();
+                        + int.Parse(nudSoLuong.Value.ToString())).ToString();*/
+                    var checkEqualDonGia = lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p => p.SubItems[1].Text == tenHang).Where(p => p.SubItems[2].Text.Equals(txtDonGia.Text)).FirstOrDefault() != null ? true : false;
+                    if (checkEqualDonGia && txtDonGia.Text.Trim().Length > 0)
+                    {//Cái này là cộng dồn vào cột số lượng khi món hàng thêm vào đã có
+
+                        lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p => p.SubItems[1].Text == tenHang).Where(p => p.SubItems[2].Text.Equals(txtDonGia.Text)).FirstOrDefault().SubItems[3].Text =
+                            (int.Parse(lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p => p.SubItems[1].Text == tenHang).Where(p => p.SubItems[2].Text.Equals(txtDonGia.Text)).First().SubItems[3].Text)
+                            + int.Parse(nudSoLuong.Value.ToString())).ToString();
+                        appended = true;
+                    }
+                    else if (txtDonGia.Text.Length <= 0)
+                    {
+
+                        lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p => p.SubItems[1].Text == tenHang).FirstOrDefault().SubItems[3].Text =
+                            (int.Parse(lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p => p.SubItems[1].Text == tenHang).First().SubItems[3].Text)
+                            + int.Parse(nudSoLuong.Value.ToString())).ToString();
+                        appended = true;
+                    }
+                    /*
+                    else if (txtDonGia.Text.Length > 0)
+                    {
+                        var donGia = rdbHangTrongKho.Checked == true ? quanLyThongTin.LayDonGia(tenHang) : txtDonGia.Text;
+                        DTO.HangDTO hang = new DTO.HangDTO(maHang, tenHang, float.Parse(donGia.ToString()), int.Parse(nudSoLuong.Value.ToString()));
+                        List<DTO.HangDTO> list = new List<DTO.HangDTO> { hang };
+                        AddDataToListView(list, lvwChiTietHoaDon);
+                    }*/
+
                 }
+
                 //Nếu không thì thêm mặt hàng đó vào listview
-                else
+                if(!appended) //if(!checkTenHangInListView|| checkTenHangInListView && newHang == true)
                 {
                     var donGia = rdbHangTrongKho.Checked == true ? quanLyThongTin.LayDonGia(tenHang) : txtDonGia.Text;
                     DTO.HangDTO hang = new DTO.HangDTO(maHang, tenHang, float.Parse(donGia.ToString()), int.Parse(nudSoLuong.Value.ToString()));
-                    List<DTO.HangDTO> list = new List<DTO.HangDTO>
-                {
-                    hang
-                };
+                    List<DTO.HangDTO> list = new List<DTO.HangDTO> { hang };
                     AddDataToListView(list, lvwChiTietHoaDon);
                 }
                 DefaultValue();
@@ -519,7 +562,7 @@ namespace ManagementSales
                 list.Add(chiTietHoaDon);
             }
             var khachHang = quanLyThongTin.GetKhachHangBySDT(int.Parse(txtSDTKhachHang.Text.ToString()));
-            
+
             int maHD = int.Parse((((int)DateTime.Now.TimeOfDay.TotalSeconds).ToString() + ((int)DateTime.Now.DayOfYear).ToString()));
             DTO.HoaDonDTO hoaDon = new DTO.HoaDonDTO(maHD, 0, "", 0, DateTime.Now, "0");
             //
@@ -638,6 +681,11 @@ namespace ManagementSales
 
         private void BtnHuy_Click(object sender, EventArgs e)
         {
+            if (lvwChiTietHoaDon.Items.Count == 0)
+            {
+                MessageBox.Show("Không có hóa đơn để hủy", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             var result = MessageBox.Show("Bạn có chắc không", "Hủy hóa đơn", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
@@ -655,7 +703,9 @@ namespace ManagementSales
 
 
         #region Method
-
+        /// <summary>
+        /// Kích hoạt các <see cref="System.Windows.Forms.Button"/> trong Xuất/Nhập hàng
+        /// </summary>
         public void EnableControl()
         {
             dgrvHang.Enabled = true;
@@ -664,6 +714,9 @@ namespace ManagementSales
             btnChonFile.Enabled = true;
         }
 
+        /// <summary>
+        ///  Không kích hoạt các <see cref="System.Windows.Forms.Button"/> trong Xuất/Nhập hàng
+        /// </summary>
         public void DisEnableControl()
         {
             dgrvHang.Enabled = false;
@@ -672,6 +725,7 @@ namespace ManagementSales
             btnChonFile.Enabled = false;
         }
         #endregion
+
         private void BtnNhapHang_Click(object sender, EventArgs e)
         {
             try
@@ -703,7 +757,7 @@ namespace ManagementSales
                 WarningMessageBox(ex);
             }
         }
-        
+
         private void BtnXuatHang_Click(object sender, EventArgs e)
         {
             try
@@ -816,6 +870,7 @@ namespace ManagementSales
                     {
                         using (var frmThemKhachHang = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<frmThemKhachHang>())
                         {
+                            frmThemKhachHang.Sdt = int.Parse(sdtKH);
                             frmThemKhachHang.ShowDialog();
                         }
                     }

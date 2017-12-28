@@ -455,6 +455,7 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Nhân Viên";
+            this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.GroupBox1_Paint);
             // 
             // label2
             // 
@@ -468,7 +469,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(484, 73);
+            this.label6.Location = new System.Drawing.Point(487, 69);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 13);
             this.label6.TabIndex = 12;
@@ -553,6 +554,7 @@
             this.txtEmailNV.Name = "txtEmailNV";
             this.txtEmailNV.Size = new System.Drawing.Size(160, 20);
             this.txtEmailNV.TabIndex = 6;
+            this.txtEmailNV.Leave += new System.EventHandler(this.TxtEmailNV_Leave);
             // 
             // tabCnQuanLy
             // 
@@ -710,6 +712,7 @@
             this.txtMaHang.Enabled = false;
             this.txtMaHang.Location = new System.Drawing.Point(81, 66);
             this.txtMaHang.Name = "txtMaHang";
+            this.txtMaHang.ReadOnly = true;
             this.txtMaHang.Size = new System.Drawing.Size(154, 20);
             this.txtMaHang.TabIndex = 2;
             // 

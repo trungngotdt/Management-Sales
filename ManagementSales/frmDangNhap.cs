@@ -83,10 +83,11 @@ namespace ManagementSales
                     if (kiemTra)
                     {
                         string path = Application.StartupPath + "\\log.txt";
-                        dangNhapBUS.Log("Name :"+txtName.Text+"  Time : "+DateTime.Now.ToLongDateString(),path);
-                        MessageBox.Show("Đăng Nhập thành công", "THÔNG BÁO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        //MessageBox.Show("Đăng Nhập thành công", "THÔNG BÁO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         var id= dangNhapBUS.MaNV(txtName.Text);
                         Program.IDStaff = id;
+                        dangNhapBUS.Log("ID :"+id+ " Name :"+txtName.Text+"  Time : "+ DateTime.Now.GetDateTimeFormats()[29], path);
                         Program.NameStaff = dangNhapBUS.TenNV(int.Parse(Program.IDStaff));
                         var chucVu = dangNhapBUS.ChucVu(txtName.Text);
                         OpenAnOtherFrom(chucVu);

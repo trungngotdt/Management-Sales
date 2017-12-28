@@ -24,6 +24,7 @@ namespace ManagementSales
         }
 
 
+        public int Sdt { get; set; }
         /// <summary>
         ///Hiển thị thông báo khi có bất kì <see cref="Exception"/> nào bị phát hiện 
         /// </summary>
@@ -48,6 +49,20 @@ namespace ManagementSales
                 else
                 {
                     var gioiTinh = cboNam.Checked == true ? 1 : 0;
+                    if (cboNam.Checked==cboNu.Checked==true)
+                    {
+                        MessageBox.Show("Chỉ được chọn Nam hoặc Nữ","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        this.Cursor = Cursors.Default;
+                        return;
+                    }
+
+                    var checkLoaiKH = txtLoaiKH.Text.Equals("DT") || txtLoaiKH.Text.Equals("VIP");
+                    if (!checkLoaiKH)
+                    {
+                        this.Cursor = Cursors.Default;
+                        MessageBox.Show("Loại khách không thể là " + txtLoaiKH.Text + "\nCó 2 chức vụ mặc định : DT ,VIP", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
                     var isThemKH = themKhachHang.InsertKhachHang(new object[] { txtTenKhachHang.Text, int.Parse(txtSDT.Text), gioiTinh, txtDiaChi.Text, txtLoaiKH.Text });
                     /*if (isThemKH)
                     {
@@ -59,6 +74,10 @@ namespace ManagementSales
                     }*/
                     string mess = isThemKH == true ? "Thành Công" : "Có lỗi xảy ra";
                     MessageBox.Show(mess,"THÔNG BÁO",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    if (isThemKH==true)
+                    {
+                        this.Close();
+                    }
                 }
 
 
@@ -70,6 +89,7 @@ namespace ManagementSales
             finally
             {
                 this.Cursor = Cursors.Default;
+                
             }
         }
 
@@ -93,6 +113,13 @@ namespace ManagementSales
             var checkGioiTinh = !(cboNam.Checked || cboNu.Checked);
             var checkTextBox = chechDiaChi || chechkSDT || chechLoaiKH || checkTen||checkGioiTinh;
             return checkTextBox;
+        }
+
+        private void frmThemKhachHang_Load(object sender, EventArgs e)
+        {
+            this.txtSDT.Enabled = false;
+            this.txtSDT.ReadOnly = true;
+            this.txtSDT.Text = Sdt.ToString();
         }
     }
 }

@@ -97,6 +97,12 @@ namespace ManagementSales.BUS
         {
             try
             {
+                var tenHang= dataProvider.ExecuteScalar("EXECUTE USP_GetMaHang @name", new object[] { para[1] });
+                if (tenHang!=null)
+                {
+                    Exception exception = new Exception("Hàng có tên đã tồn tại");
+                    throw exception;
+                }
                 return dataProvider.ExecuteNonQuery("USP_InsertHang @id , @name , @price , @number , @notice ", para) > 0;
             }
             catch (Exception ex)
@@ -117,6 +123,12 @@ namespace ManagementSales.BUS
         {
             try
             {
+                var tenNV = dataProvider.ExecuteScalar("EXECUTE USP_GetMaKH @name", new object[] { para[0] });
+                if (tenNV != null)
+                {
+                    Exception exception = new Exception("Khách Hàng có tên đã tồn tại");
+                    throw exception;
+                }
                 return dataProvider.ExecuteNonQuery("EXECUTE USP_InsertKhachHang @name , @phone , @sex , @address , @level ", para) > 0;
                 //throw new NotImplementedException();
             }
@@ -137,6 +149,12 @@ namespace ManagementSales.BUS
         {
             try
             {
+                var tenNV = dataProvider.ExecuteScalar("EXECUTE USP_GetMaNV @name", new object[] { para[0] });
+                if (tenNV != null)
+                {
+                    Exception exception = new Exception("Nhân Viên có tên đã tồn tại");
+                    throw exception;
+                }
                 return dataProvider.ExecuteNonQuery("EXECUTE USP_InsertNV @Ten , @Chuc , @DiaChi , @SDT , @Email", para) > 0;
                 //throw new NotImplementedException();
             }

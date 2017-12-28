@@ -27,6 +27,7 @@ namespace ManagementSalesTest.BUS
         [TestCase("a", null, "", 0, null)]
         [TestCase("a", "b", "", 1, null)]
         [TestCase("", "", "", 2, "c")]
+        [TestCase("a","a","a",1,"a")]
         public void ChangeInfo(string name, string pass, string id, int number, object scalar)
         {
             mockIDataProvider.Setup(x => x.ExecuteNonQuery(It.IsNotNull<string>(), It.IsNotNull<object[]>())).Returns(number);

@@ -62,10 +62,10 @@ namespace ManagementSales.BUS
         public void Log(string data,string path)
         {
             //string path = Application.StartupPath + "\\log.txt";           
-            using (var fileStream =File.Open(path,FileMode.Open))
+            using (var fileStream =File.Open(path,FileMode.Append))
             {
                 StreamWriter sWriter = new StreamWriter(fileStream, Encoding.UTF8);
-                sWriter.WriteLine(data);
+                sWriter.WriteLine(data,true);
                 sWriter.Flush();
                 sWriter.Close();
                 fileStream.Close();

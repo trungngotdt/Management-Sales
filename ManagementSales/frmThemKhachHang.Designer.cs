@@ -168,6 +168,7 @@
             this.MinimizeBox = false;
             this.Name = "frmThemKhachHang";
             this.Text = "Thêm Khách Hàng";
+            this.Load += new System.EventHandler(this.frmThemKhachHang_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

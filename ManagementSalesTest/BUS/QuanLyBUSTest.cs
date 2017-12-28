@@ -116,6 +116,9 @@ namespace QuanLyBanHangTest.BUS
             mockIDataProvider.Setup(x => x.ExecuteNonQuery(It.IsNotNull<string>(), para)).Throws<Exception>();
             var exception = Assert.Catch<Exception>(() => quanLyBUS.InsertKH(para));
             Assert.IsTrue(exception.GetType() == typeof(Exception));
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), It.IsNotNull<object[]>())).Returns("");
+            var excep = Assert.Catch<Exception>(() => quanLyBUS.InsertKH(para));
+            Assert.IsTrue(excep.GetType() == typeof(Exception));
             mockIDataProvider.VerifyAll();
         }
 
@@ -125,16 +128,20 @@ namespace QuanLyBanHangTest.BUS
         public void InsertHangTest(object[] para, int number, bool value)
         {
             mockIDataProvider.Setup(x => x.ExecuteNonQuery(It.IsNotNull<string>(), para)).Returns(number);
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), It.IsNotNull<object[]>())).Returns(null);
             var result = quanLyBUS.InsertHang(para);
             Assert.AreEqual(result, value);
         }
 
-        [TestCase(new object[] { "null" })]
+        [TestCase(new object[] { "null","k" })]
         public void InsertHangTestException(object[] para)
         {
             mockIDataProvider.Setup(x => x.ExecuteNonQuery(It.IsNotNull<string>(), para)).Throws<Exception>();
             var exception = Assert.Catch<Exception>(() => quanLyBUS.InsertHang(para));
             Assert.IsTrue(exception.GetType() == typeof(Exception));
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), It.IsNotNull<object[]>())).Returns("");
+            var excep = Assert.Catch<Exception>(() => quanLyBUS.InsertHang(para));
+            Assert.IsTrue(excep.GetType() == typeof(Exception));
             mockIDataProvider.VerifyAll();
         }
 
@@ -155,6 +162,9 @@ namespace QuanLyBanHangTest.BUS
             mockIDataProvider.Setup(x => x.ExecuteNonQuery(It.IsNotNull<string>(), para)).Throws<Exception>();
             var exception = Assert.Catch<Exception>(() => quanLyBUS.InsertNV(para));
             Assert.IsTrue(exception.GetType() == typeof(Exception));
+            mockIDataProvider.Setup(x => x.ExecuteScalar(It.IsNotNull<string>(), It.IsNotNull<object[]>())).Returns("");
+            var excep = Assert.Catch<Exception>(() => quanLyBUS.InsertNV(para));
+            Assert.IsTrue(excep.GetType() == typeof(Exception));
             mockIDataProvider.VerifyAll();
         }
 

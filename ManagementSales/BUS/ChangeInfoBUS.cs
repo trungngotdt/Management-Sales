@@ -18,16 +18,20 @@ namespace ManagementSales.BUS
 
         public bool ChangeInfo(string name, string pass, string id)
         {
-            
+
             if (!(String.IsNullOrEmpty(name) || String.IsNullOrEmpty(pass)))
             {
-
+                var isExist = dataProvider.ExecuteScalar("EXEC USP_GetMaNVByNameSignIn @name", new object[] { name })?.ToString();
+                if (isExist != null)
+                {
+                    return false;
+                }
                 return dataProvider.ExecuteNonQuery("EXECUTE USP_UpdateNVNameSignInPass @id , @name , @pass ", new object[] { id, name, pass }) > 0;
             }
             else if (!String.IsNullOrEmpty(name))
             {
-                var isExist= dataProvider.ExecuteScalar("EXEC USP_GetMaNVByNameSignIn @name", new object[] { name })?.ToString();
-                if (isExist!=null)
+                var isExist = dataProvider.ExecuteScalar("EXEC USP_GetMaNVByNameSignIn @name", new object[] { name })?.ToString();
+                if (isExist != null)
                 {
                     return false;
                 }
