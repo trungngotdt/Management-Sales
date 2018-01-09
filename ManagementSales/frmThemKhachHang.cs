@@ -64,14 +64,7 @@ namespace ManagementSales
                         return;
                     }
                     var isThemKH = themKhachHang.InsertKhachHang(new object[] { txtTenKhachHang.Text, int.Parse(txtSDT.Text), gioiTinh, txtDiaChi.Text, txtLoaiKH.Text });
-                    /*if (isThemKH)
-                    {
-                        MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Có lỗi xảy ra", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }*/
+                    
                     string mess = isThemKH == true ? "Thành Công" : "Có lỗi xảy ra";
                     MessageBox.Show(mess,"THÔNG BÁO",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     if (isThemKH==true)

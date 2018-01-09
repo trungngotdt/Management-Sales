@@ -364,11 +364,6 @@ namespace ManagementSales
         private void TxtSDTNV_KeyPress(object sender, KeyPressEventArgs e)
         {
             InputPhoneNumber(sender, e,txtSDTNV);
-            /*
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }*/
         }
 
         private void BtnSua_Click(object sender, EventArgs e)
@@ -391,11 +386,6 @@ namespace ManagementSales
 
         private void BtnCapNhat_Click(object sender, EventArgs e)
         {
-            /*if (!CheckTextBoxNV())
-            {
-                MessageBox.Show("Vui Lòng điền đầy đủ thông tin", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }*/
             if (!ValidateBeforeAction(CheckTextBoxNV()))
             {
                 return;
@@ -428,11 +418,6 @@ namespace ManagementSales
 
         private void BtnThem_Click(object sender, EventArgs e)
         {
-            /*if (!CheckTextBoxNV())
-            {
-                MessageBox.Show("Vui Lòng điền đầy đủ thông tin", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }*/
 
             if (!ValidateBeforeAction(CheckTextBoxNV()))
             {
@@ -509,14 +494,6 @@ namespace ManagementSales
 
         private void BtnThemKhach_Click(object sender, EventArgs e)
         {
-            /*this.Cursor = Cursors.WaitCursor;
-            if (!CheckTextBoxKH())
-            {
-                MessageBox.Show("Điền đầy đủ thông tin", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Cursor = Cursors.Default;
-                return;
-            }
-            */
             if (!ValidateBeforeAction(CheckTextBoxKH()))
             {
                 return;
@@ -573,13 +550,6 @@ namespace ManagementSales
 
         private void BtnCapNhatKhach_Click(object sender, EventArgs e)
         {
-            /*if (!CheckTextBoxKH())
-            {
-                MessageBox.Show("Điền đầy đủ thông tin", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            */
-
             if (!ValidateBeforeAction(CheckTextBoxKH()))
             {
                 return;
@@ -627,18 +597,6 @@ namespace ManagementSales
         private void TxtSDTKhach_KeyPress(object sender, KeyPressEventArgs e)
         {
             InputPhoneNumber(sender, e, txtSDTKhach);
-            /*
-            if (txtSDTKhach.Text.Length<=12)
-            {
-                InputNumber(sender, e);
-            }
-            */
-            /*
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-            */
         }
 
         private void TxtGoiTinh_KeyPress(object sender, KeyPressEventArgs e)
@@ -691,22 +649,11 @@ namespace ManagementSales
         private void TxtDonGia_KeyPress(object sender, KeyPressEventArgs e)
         {
             InputNumber(sender, e);
-            /*
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }*/
         }
 
         private void TxtSoLuong_KeyPress(object sender, KeyPressEventArgs e)
         {
             InputNumber(sender, e);
-            /*
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-            */
         }
 
         private void DgrvHang_CellClick(object sender, DataGridViewCellEventArgs e)

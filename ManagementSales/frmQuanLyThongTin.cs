@@ -65,17 +65,6 @@ namespace ManagementSales
                 ConfigForListView();
                 cboTenHang.DataSource = quanLyThongTin.DataSourceForCombobox();
                 StatusControlLapPhieu(false);
-
-                /*txtID.Text = Program.IDStaff;
-                txtName.Text = Program.NameStaff;
-                txtRole.Text = Program.RoleStaff;
-                txtRole.Enabled = false;
-                txtRole.ReadOnly = true;
-                txtID.Enabled = false;
-                txtID.ReadOnly = true;
-                txtName.Enabled = false;
-                txtName.ReadOnly = true;
-                txtNameStaff.Text = txtName.Text;*/
                 DefaultSetControl();
                 DisEnableControl();
                 this.AcceptButton = btnKiemTraKH;
@@ -172,15 +161,6 @@ namespace ManagementSales
                     MessageBox.Show("Làm ơn tích vào ít nhất một ô lựa chọn", "Thiếu lựa chọn", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                /*var kiemTraCheckBox = chkDonGia.CheckState == CheckState.Unchecked &&
-                    chkMaHang.CheckState == CheckState.Unchecked &&
-                    chkSoLuong.CheckState == CheckState.Unchecked &&
-                    chkTenHang.CheckState == CheckState.Unchecked;*/
-                /*if (IsUnCheckCheckBox())
-                {
-                    MessageBox.Show("Làm on đánh dấu vào ít nhất một ô", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }*/
                 var MaHang = chkMaHang.CheckState == CheckState.Checked ? "MaHang" : "";
                 var TenHang = chkTenHang.CheckState == CheckState.Checked ? "TenHang" : "";
                 var SoLuong = chkSoLuong.CheckState == CheckState.Checked ? "SoLuong" : "";
@@ -409,15 +389,6 @@ namespace ManagementSales
 
         private void RdbHangMoi_CheckedChanged(object sender, EventArgs e)
         {
-            /*if ((!KiemTraLoaiHD()) && (rdbHangMoi.Checked))
-            {
-                MessageBox.Show("Chọn loại hóa đơn trước", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                rdbHangMoi.Checked = false;
-                return;
-            }
-            txtDonGia.Enabled = true;
-            cboTenHang.DropDownStyle = ComboBoxStyle.Simple;
-            cboTenHang.Text = "";*/
             if (!CheckValueRdbHang(rdbHangMoi))
             {
                 return;
@@ -427,15 +398,6 @@ namespace ManagementSales
 
         private void RdbHangTrongKho_CheckedChanged(object sender, EventArgs e)
         {
-            /*if (!KiemTraLoaiHD() && (rdbHangTrongKho.Checked))
-            {
-                MessageBox.Show("Chọn loại hóa đơn trước", "", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                rdbHangTrongKho.Checked = false;
-                return;
-            }
-            txtDonGia.Enabled = false;
-            cboTenHang.DropDownStyle = ComboBoxStyle.DropDownList;*/
-
             if (!CheckValueRdbHang(rdbHangTrongKho))
             {
                 return;
@@ -463,19 +425,9 @@ namespace ManagementSales
                     .Where(p => p.SubItems[1].Text == tenHang).FirstOrDefault()
                     .SubItems[2].Text.Equals(txtDonGia.Text));
                 bool appended = false;
-                /*
-                bool newHang = checkTenHangInListView ?
-                    (txtDonGia.Text.Trim().Length>0 ? lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList()
-                    .Where(p => p.SubItems[1].Text == tenHang).FirstOrDefault()
-                    .SubItems[2].Text.Equals(txtDonGia.Text):false): true;
-                */
                 //Nếu có hàng trong hóa đơn thì cộng dồn vào
-                if (checkTenHangInListView)//&&newHang==false||checkTenHangInListView&&txtDonGia.Text.Trim().Length<=0)
+                if (checkTenHangInListView)
                 {
-                    
-                    /*
-                    lvwChiTietHoaDon.FindItemWithText(tenHang).SubItems[3].Text = (int.Parse(lvwChiTietHoaDon.FindItemWithText(tenHang).SubItems[3].Text)
-                        + int.Parse(nudSoLuong.Value.ToString())).ToString();*/
                     var checkEqualDonGia = lvwChiTietHoaDon.Items.OfType<ListViewItem>().ToList().Where(p => p.SubItems[1].Text == tenHang).Where(p => p.SubItems[2].Text.Equals(txtDonGia.Text)).FirstOrDefault() != null ? true : false;
                     if (checkEqualDonGia && txtDonGia.Text.Trim().Length > 0)
                     {//Cái này là cộng dồn vào cột số lượng khi món hàng thêm vào đã có
@@ -493,14 +445,6 @@ namespace ManagementSales
                             + int.Parse(nudSoLuong.Value.ToString())).ToString();
                         appended = true;
                     }
-                    /*
-                    else if (txtDonGia.Text.Length > 0)
-                    {
-                        var donGia = rdbHangTrongKho.Checked == true ? quanLyThongTin.LayDonGia(tenHang) : txtDonGia.Text;
-                        DTO.HangDTO hang = new DTO.HangDTO(maHang, tenHang, float.Parse(donGia.ToString()), int.Parse(nudSoLuong.Value.ToString()));
-                        List<DTO.HangDTO> list = new List<DTO.HangDTO> { hang };
-                        AddDataToListView(list, lvwChiTietHoaDon);
-                    }*/
 
                 }
 
@@ -547,10 +491,6 @@ namespace ManagementSales
 
             foreach (ListViewItem item in lvwChiTietHoaDon.Items)
             {
-                /*var maHang = item.SubItems[0].Text.ToString();
-                var tenHang = item.SubItems[1].Text.ToString();
-                var donGia = float.Parse(item.SubItems[2].Text.ToString());
-                var soLuong = int.Parse(item.SubItems[3].Text.ToString());*/
                 DTO.HangDTO chiTietHoaDon = new DTO.HangDTO()
                 {
                     StrMaHang = item.SubItems[0].Text.ToString(),
@@ -816,10 +756,6 @@ namespace ManagementSales
                         data.ForEach(x =>
                         {
                             dataTable.Rows.Add(x.Item1, x.Item2, x.Item3, x.Item4, x.Item5);
-                            /*dataTable.Rows.Add(x.Item2);
-                            dataTable.Rows.Add(x.Item3);
-                            dataTable.Rows.Add(x.Item4);
-                            dataTable.Rows.Add(x.Item5);*/
                         });
 
                         dataTable.AcceptChanges();
